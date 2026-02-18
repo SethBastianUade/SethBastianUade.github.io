@@ -144,10 +144,18 @@ a:hover {
 }
 
 .hero-cta {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 1rem;
   justify-content: center;
-  flex-wrap: wrap;
+  justify-items: center;
+  max-width: fit-content;
+  margin: 0 auto;
+}
+
+.hero-cta .btn-full-width {
+  grid-column: 1 / -1;
+  width: 100%;
 }
 
 /* --- Botones --- */
