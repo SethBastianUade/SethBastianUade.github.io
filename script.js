@@ -1,17 +1,47 @@
-// Menú móvil
-const menuToggle = document.querySelector('.menu-toggle');
-const navLinks = document.querySelector('.nav-links');
+const menuToggle = document.querySelector(".menu-toggle");
+const nav = document.querySelector(".nav");
+const navLinks = document.querySelectorAll(".nav a");
+const typingTarget = document.querySelector(".terminal-typing");
 
-if (menuToggle && navLinks) {
-  menuToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('open');
-    menuToggle.setAttribute('aria-label',
-      navLinks.classList.contains('open') ? 'Cerrar menú' : 'Abrir menú'
-    );
+if (menuToggle && nav) {
+  const setMenuState = (open) => {
+    nav.classList.toggle("open", open);
+    menuToggle.setAttribute("aria-expanded", String(open));
+    menuToggle.setAttribute("aria-label", open ? "Cerrar menu" : "Abrir menu");
+  };
+
+  menuToggle.addEventListener("click", () => {
+    setMenuState(!nav.classList.contains("open"));
   });
 
-  // Cerrar al hacer clic en un enlace
-  navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => navLinks.classList.remove('open'));
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => setMenuState(false));
   });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 820) {
+      setMenuState(false);
+    }
+  });
+}
+
+if (typingTarget) {
+  const fullText = typingTarget.dataset.text ?? "";
+  let index = 0;
+
+  typingTarget.classList.add("is-typing");
+
+  const type = () => {
+    typingTarget.textContent = fullText.slice(0, index);
+    index += 1;
+
+    if (index <= fullText.length) {
+      window.setTimeout(type, 42);
+      return;
+    }
+
+    typingTarget.classList.remove("is-typing");
+  };
+
+  type();
 }

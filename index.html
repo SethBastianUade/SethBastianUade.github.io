@@ -3,133 +3,313 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sebastián Arroyo | Portfolio</title>
-  <meta name="description" content="Portfolio de Sebastián Arroyo - Desarrollador de Software">
+  <title>Sebastian Arroyo | Backend Developer</title>
+  <meta
+    name="description"
+    content="Portfolio profesional de Sebastian Arroyo, Backend Developer especializado en Java, SQL Server y arquitectura de microservicios."
+  >
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  >
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="header">
-    <nav class="nav">
-      <a href="#inicio" class="logo">Sebastian Arroyo<span class="accent">.</span></a>
-      <ul class="nav-links">
-        <li><a href="#sobre-mi">Sobre mí</a></li>
-        <li><a href="#proyectos">Proyectos</a></li>
-        <li><a href="#habilidades">Habilidades</a></li>
-        <li><a href="#contacto">Contacto</a></li>
-      </ul>
-      <button class="menu-toggle" aria-label="Abrir menú">
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#inicio">
+        <span class="brand-mark">&lt;/&gt;</span>
+        <span class="brand-copy">sebastian.dev</span>
+      </a>
+
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="site-nav"
+        aria-label="Abrir menu"
+      >
         <span></span>
         <span></span>
         <span></span>
       </button>
-    </nav>
-  </header>
 
-  <main>
-    <section id="inicio" class="hero">
-      <p class="hero-greeting">Hola, soy</p>
-      <h1 class="hero-title">Sebastián Arroyo</h1>
-      <p class="hero-role">Java Software Developer</p>
-      <p class="hero-bio">Técnico en Desarrollo de Software · UADE · Vivatia</p>
-      <div class="hero-cta">
-        <a href="https://github.com/SethBastianUade" target="_blank" rel="noopener" class="btn btn-outline">GitHub</a>
-        <a href="cv.pdf" target="_blank" rel="noopener" class="btn btn-outline">Ver CV</a>
-        <a href="#proyectos" class="btn btn-primary btn-full-width">Ver proyectos</a>
-      </div>
-    </section>
+      <nav class="nav" id="site-nav">
+        <a href="#inicio">Inicio</a>
+        <a href="#stack">Stack</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#contacto">Contacto</a>
+        <a href="cv.pdf" target="_blank" rel="noopener" class="nav-cta">CV.pdf</a>
+      </nav>
+    </header>
 
-    <section id="sobre-mi" class="section about">
-      <h2 class="section-title">Sobre mí</h2>
-      <div class="about-content">
-        <p>
-          Soy <strong>Sebastián Arroyo</strong> Backend Developer enfocado en Java y Spring Boot.
-          Experiencia real en entornos financieros desarrollando APIs REST, lógica de negocio y consultas optimizadas en bases de datos relacionales.
-        </p>
-        <p>
-          Me interesa construir software robusto, seguro y escalable, con foco en calidad de código y buenas prácticas.
-        </p>
-        <p>
-          Busco seguir creciendo en arquitectura backend y sistemas empresariales.
-        </p>
-       
-      </div>
-    </section>
+    <main>
+      <section class="hero section" id="inicio">
+        <div class="hero-copy">
+          <div class="section-label">$ init portfolio</div>
 
-    <section id="proyectos" class="section projects">
-      <h2 class="section-title">Proyectos</h2>
-      <div class="projects-grid">
+          <div class="terminal-window terminal-hero">
+            <div class="terminal-bar">
+              <span></span>
+              <span></span>
+              <span></span>
+              <p>developer-console</p>
+            </div>
 
-        <article class="project-card">
-          <div class="project-header">
-            <h3>Club Center Fight Academy</h3>
-            <span class="project-tag">Web</span>
+            <div class="terminal-body">
+              <p class="terminal-line">
+                <span class="prompt">user@portfolio:~$</span>
+                <span class="command">whoami</span>
+              </p>
+              <p class="terminal-result terminal-typing" data-text="Sebastian Arroyo | Backend Developer"></p>
+              <p class="terminal-line">
+                <span class="prompt">user@portfolio:~$</span>
+                <span class="command">cat expertise.txt</span>
+              </p>
+              <p class="terminal-result">
+                BackEnd Developer especializado en Java y SQL Server.
+              </p>
+            </div>
           </div>
-          <p>Página web en HTML y CSS, con el objetivo de dar mayor alcance al club y sus servicios.</p>
-          <a href="https://github.com/SethBastianUade/Proyect-Club-Center-Fight-Academy" target="_blank" rel="noopener" class="project-link">Ver en GitHub →</a>
-          <p> </p>
-          <a href="https://clubcenterfa.com" target="_blank" rel="noopener" class="project-link">Ir a la web →</a>
-        </article>
 
-        <article class="project-card">
-          <div class="project-header">
-            <h3>Ruta de los 7</h3>
-            <span class="project-tag">Web</span>
+          <h1>Backend engineering con enfoque en sistemas robustos, APIs claras y soluciones listas para produccion.</h1>
+          <p class="hero-text">
+            Desarrollo backend con foco en Java, modelado de negocio y persistencia relacional.
+            Me interesa construir servicios mantenibles, bien estructurados y preparados para crecer.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#proyectos" class="terminal-button">run projects.sh</a>
+            <a href="cv.pdf" target="_blank" rel="noopener" class="terminal-button terminal-button-secondary">open cv.pdf</a>
+            <a href="https://github.com/SethBastianUade" target="_blank" rel="noopener" class="terminal-button terminal-button-secondary">git remote -v</a>
           </div>
-          <p>Proyecto de freelance para un cliente, web de wooCommerce con parasela de compras.</p>
-          <a href="https://rutadelos7.com.ar" target="_blank" rel="noopener" class="project-link">Ir a la web →</a>
-        </article>
 
-        <article class="project-card">
-          <div class="project-header">
-            <h3>Kash</h3>
-            <span class="project-tag">Python</span>
-          </div>
-          <p>Billetera virtual: Con la cual se pueden vincular cuentas bancarias, transferencias y reportes. Proyecto de facultad.</p>
-          <a href="https://github.com/SethBastianUade/Kash" target="_blank" rel="noopener" class="project-link">Ver en GitHub →</a>
-        </article>
-
-        <article class="project-card">
-          <div class="project-header">
-            <h3>Proyecto Final de Programación II</h3>
-            <span class="project-tag">Java</span>
-          </div>
-          <p>Proyecto de Programación II, proyecto de una aplicación de escritorio en Java usando POO, simulando una app de delivery.</p>
-          <a href="https://github.com/SethBastianUade/UADE-2025-PROGRA-II" target="_blank" rel="noopener" class="project-link">Ver en GitHub →</a>
-        </article>
-
+          <ul class="hero-meta">
+            <li>Java Backend</li>
+            <li>APIs REST</li>
+            <li>SQL & modelado relacional</li>
+            <li>Spring Boot</li>
+          </ul>
         </div>
-    </section>
 
-    <section id="habilidades" class="section skills">
-      <h2 class="section-title">Habilidades</h2>
-      <div class="skills-list">
-        <span class="skill">Java</span>
-        <span class="skill">Python</span>
-        <span class="skill">SQL / MySQL</span>
-        <span class="skill">JavaScript</span>
-        <span class="skill">HTML5</span>
-        <span class="skill">Git / GitHub</span>
-        <span class="skill">Apache</span>
-        <span class="skill">Spring Boot</span>
-      </div>
-    </section>
+        <aside class="hero-panel">
+          <article class="panel-card status-card">
+            <div class="card-head">
+              <p class="card-title">system/status</p>
+              <span class="status-pill">ONLINE</span>
+            </div>
+            <ul class="status-list">
+              <li><span>Rol</span><strong>Backend Developer</strong></li>
+              <li><span>Core Stack</span><strong>Java + Spring</strong></li>
+              <li><span>DB Focus</span><strong>SQL Server / SQL</strong></li>
+              <li><span>Approach</span><strong>BackEnd Developer</strong></li>
+            </ul>
+          </article>
 
-    <section id="contacto" class="section contact">
-      <h2 class="section-title">Contacto</h2>
-      <p class="contact-text">Te querés contactar? Escribime:</p>
-      <div class="contact-links">
-        <a href="https://github.com/SethBastianUade" target="_blank" rel="noopener" class="contact-link" aria-label="GitHub">GitHub</a>
-        <a href="https://www.linkedin.com/in/sebastián-arroyo-84a46a20a" target="_blank" rel="noopener" class="contact-link" aria-label="LinkedIn">LinkedIn</a>
-      </div>
-    </section>
-  </main>
+          <article class="panel-card code-card">
+            <div class="card-head">
+              <p class="card-title">service/overview.java</p>
+            </div>
+            <pre><code>public class BackendProfile {
+  String language = "Java";
+  String framework = "Spring Boot";
+  String focus = "REST APIs";
+  String database = "SQL Server";
+  String architecture = "Microservices";
+}</code></pre>
+          </article>
+        </aside>
+      </section>
 
-  <footer class="footer">
-    <p>Hecho con <span class="heart">♥</span> · Sebastián Arroyo</p>
-  </footer>
+      <section class="section" id="stack">
+        <div class="section-heading">
+          <p class="section-label">$ ls tech-stack/</p>
+          <h2>Stack Tecnologico</h2>
+          <p>
+            Herramientas y tecnologias que uso para construir servicios backend confiables y flujos de desarrollo ordenados.
+          </p>
+        </div>
+
+        <div class="stack-grid">
+          <article class="stack-card">
+            <span class="stack-icon">J</span>
+            <h3>Java</h3>
+            <p>Logica de negocio, POO y aplicaciones empresariales.</p>
+          </article>
+          <article class="stack-card">
+            <span class="stack-icon">SB</span>
+            <h3>Spring Boot</h3>
+            <p>Construccion de APIs REST y estructura backend moderna.</p>
+          </article>
+          <article class="stack-card">
+            <span class="stack-icon">SQL</span>
+            <h3>SQL Server</h3>
+            <p>Consultas, persistencia y modelado relacional.</p>
+          </article>
+          <article class="stack-card">
+            <span class="stack-icon">GIT</span>
+            <h3>Git / GitHub</h3>
+            <p>Versionado, colaboracion y trazabilidad del desarrollo.</p>
+          </article>
+          <article class="stack-card">
+            <span class="stack-icon">API</span>
+            <h3>REST APIs</h3>
+            <p>Endpoints claros, integracion y contratos mantenibles.</p>
+          </article>
+          <article class="stack-card">
+            <span class="stack-icon">ARC</span>
+            <h3>Microservicios</h3>
+            <p>Diseño modular con foco en escalabilidad y separacion de responsabilidades.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="proyectos">
+        <div class="section-heading">
+          <p class="section-label">$ find ./projects -featured</p>
+          <h2>Proyectos</h2>
+          <p>
+            Una seleccion de trabajos que muestran implementacion tecnica, resolucion practica y criterio de producto.
+          </p>
+        </div>
+
+        <div class="projects-grid">
+          <article class="project-card">
+            <div class="project-header">
+              <p class="card-title">project_01</p>
+              <span class="project-badge">CLIENT</span>
+            </div>
+            <h3>Club Center Fight Academy</h3>
+            <p>
+              Sitio institucional orientado a mejorar presencia digital, comunicar servicios y elevar la imagen profesional del club.
+            </p>
+            <ul class="project-tags">
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>JavaScript</li>
+              <li>Brand Web</li>
+            </ul>
+            <div class="project-actions">
+              <a href="https://clubcenterfa.com" target="_blank" rel="noopener">Live Demo</a>
+              <a href="https://github.com/SethBastianUade/Proyect-Club-Center-Fight-Academy" target="_blank" rel="noopener">GitHub Repo</a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-header">
+              <p class="card-title">project_02</p>
+              <span class="project-badge">CLIENT</span>
+            </div>
+            <h3>Ruta de los 7</h3>
+            <p>
+              Proyecto freelance en WooCommerce enfocado en presencia comercial online y experiencia de compra para cliente real.
+            </p>
+            <ul class="project-tags">
+              <li>WooCommerce</li>
+              <li>Frontend</li>
+              <li>E-commerce</li>
+            </ul>
+            <div class="project-actions">
+              <a href="https://rutadelos7.com.ar" target="_blank" rel="noopener">Live Demo</a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-header">
+              <p class="card-title">project_03</p>
+              <span class="project-badge">CLIENT</span>
+            </div>
+            <h3>Mamba Servicios</h3>
+            <p>
+              Proyecto freelance, landpage enfocada en presencia comercial online comunicar servicios y elevar la imagen profesional del cliente.
+            </p>
+            <ul class="project-tags">
+              <li>Landpage</li>
+              <li>Frontend</li>
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>JavaScript</li>
+              <li>Brand Web</li>
+            </ul>
+            <div class="project-actions">
+              <a href="https://mambaservicios.com" target="_blank" rel="noopener">Live Demo</a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-header">
+              <p class="card-title">project_04</p>
+              <span class="project-badge">ACADEMIC</span>
+            </div>
+            <h3>Kash</h3>
+            <p>
+              Billetera virtual academica con vinculacion de cuentas, transferencias y reportes, centrada en logica funcional y modelado.
+            </p>
+            <ul class="project-tags">
+              <li>Python</li>
+              <li>Business Logic</li>
+              <li>Reports</li>
+            </ul>
+            <div class="project-actions">
+              <a href="https://github.com/SethBastianUade/Kash" target="_blank" rel="noopener">GitHub Repo</a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-header">
+              <p class="card-title">project_05</p>
+              <span class="project-badge">ACADEMIC</span>
+            </div>
+            <h3>Proyecto Final de Programacion II</h3>
+            <p>
+              Aplicacion de escritorio en Java orientada a objetos para simular una plataforma de delivery con multiples entidades y procesos.
+            </p>
+            <ul class="project-tags">
+              <li>Java</li>
+              <li>OOP</li>
+              <li>Desktop App</li>
+            </ul>
+            <div class="project-actions">
+              <a href="https://github.com/SethBastianUade/UADE-2025-PROGRA-II" target="_blank" rel="noopener">GitHub Repo</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="contacto">
+        <div class="contact-panel">
+          <div class="section-heading contact-heading">
+            <p class="section-label">$ connect --channel professional</p>
+            <h2>CV y Contacto</h2>
+            <p>
+              Disponible para oportunidades donde pueda aportar backend solido, crecimiento tecnico y criterio de implementacion.
+            </p>
+          </div>
+
+          <div class="contact-grid">
+            <article class="panel-card contact-card">
+              <p class="card-title">resume/download</p>
+              <h3>Descargar CV</h3>
+              <p>Version PDF lista para compartir en procesos de seleccion y networking profesional.</p>
+              <a href="cv.pdf" target="_blank" rel="noopener" class="terminal-button">download cv.pdf</a>
+            </article>
+
+            <article class="panel-card contact-card">
+              <p class="card-title">social/links</p>
+              <h3>Perfiles Profesionales</h3>
+              <p>Canales para revisar repositorios, trayectoria y abrir una conversacion laboral.</p>
+              <div class="contact-links">
+                <a href="https://www.linkedin.com/in/sebasti%C3%A1n-arroyo-84a46a20a" target="_blank" rel="noopener" class="terminal-button terminal-button-secondary">open linkedin</a>
+                <a href="https://github.com/SethBastianUade" target="_blank" rel="noopener" class="terminal-button terminal-button-secondary">open github</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
 
   <script src="script.js"></script>
 </body>
