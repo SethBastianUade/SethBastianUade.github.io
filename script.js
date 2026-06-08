@@ -45,3 +45,36 @@ if (typingTarget) {
 
   type();
 }
+
+/* Reveals al hacer scroll. Progressive enhancement: sin JS o con prefers-reduced-motion,
+   el contenido se ve completo. CSS soportado -> scroll-driven animations; si no, este
+   IntersectionObserver hace de fallback agregando .is-visible. */
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const revealTargets = document.querySelectorAll(
+  ".section-heading, .stack-row, .project-row, .contact-item"
+);
+
+if (revealTargets.length && !prefersReducedMotion) {
+  document.documentElement.classList.add("reveal-enabled");
+  revealTargets.forEach((el) => el.classList.add("reveal"));
+
+  const supportsScrollDriven = CSS.supports(
+    "(animation-timeline: view()) and (animation-range: entry)"
+  );
+
+  if (!supportsScrollDriven) {
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -10% 0px" }
+    );
+
+    revealTargets.forEach((el) => observer.observe(el));
+  }
+}
