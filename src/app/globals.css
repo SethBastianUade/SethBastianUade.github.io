@@ -190,7 +190,6 @@ main, footer {
   background: var(--color-text);
   color: var(--color-bg);
   padding: 0.55rem 1.5rem;
-  border-radius: 999px;
   transition: opacity 0.3s, transform 0.2s;
   position: relative;
   overflow: hidden;
