@@ -310,46 +310,61 @@ document.querySelectorAll(".text-reveal").forEach((el) => {
 });
 
 // ==========================================================
-// Active nav link highlight on scroll
+// Consolidated scroll handler: active nav, topbar, progress bar, indicator
 // ==========================================================
 const navLinks = document.querySelectorAll(".nav a[href^='#']");
 const sections = document.querySelectorAll("main .section[id], .hero[id]");
-
-function updateActiveNav() {
-  let current = "";
-  sections.forEach((section) => {
-    const top = section.offsetTop - 120;
-    if (window.scrollY >= top) {
-      current = section.getAttribute("id");
-    }
-  });
-
-  navLinks.forEach((link) => {
-    link.style.color = "";
-    if (link.getAttribute("href") === `#${current}`) {
-      link.style.color = "var(--text)";
-    }
-  });
-}
-
-window.addEventListener("scroll", updateActiveNav, { passive: true });
-updateActiveNav();
-
-// ==========================================================
-// Topbar — subtle border glow on scroll
-// ==========================================================
 const topbar = document.querySelector(".topbar");
+const progressBar = document.querySelector(".progress-bar");
+const navIndicator = document.querySelector(".nav-indicator");
+const navEl = document.querySelector(".nav");
 
-if (topbar) {
+if (topbar && navLinks.length) {
+  let ticking = false;
+
+  function onScroll() {
+    const scrollY = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+
+    topbar.classList.toggle("topbar-scrolled", scrollY > 40);
+
+    if (progressBar && docHeight > 0) {
+      progressBar.style.width = `${(scrollY / docHeight) * 100}%`;
+    }
+
+    let current = "";
+    sections.forEach((section) => {
+      const top = section.offsetTop - 120;
+      if (scrollY >= top) {
+        current = section.getAttribute("id");
+      }
+    });
+
+    navLinks.forEach((link) => {
+      link.classList.toggle("active", link.getAttribute("href") === `#${current}`);
+    });
+
+    if (navIndicator && navEl && window.innerWidth > 720) {
+      const activeLink = navEl.querySelector("a.active");
+      if (activeLink) {
+        const navRect = navEl.getBoundingClientRect();
+        const linkRect = activeLink.getBoundingClientRect();
+        navIndicator.style.width = `${linkRect.width}px`;
+        navIndicator.style.transform = `translateX(${linkRect.left - navRect.left}px)`;
+      }
+    }
+
+    ticking = false;
+  }
+
   window.addEventListener("scroll", () => {
-    if (window.scrollY > 40) {
-      topbar.style.borderBottomColor = "rgba(82, 82, 91, 0.4)";
-      topbar.style.boxShadow = "0 1px 20px rgba(0,0,0,0.5)";
-    } else {
-      topbar.style.borderBottomColor = "";
-      topbar.style.boxShadow = "";
+    if (!ticking) {
+      requestAnimationFrame(() => { onScroll(); });
+      ticking = true;
     }
   }, { passive: true });
+
+  onScroll();
 }
 
 // ==========================================================

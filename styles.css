@@ -105,6 +105,24 @@ a {
   z-index: 1;
 }
 
+/* Skip link — visually hidden until focused */
+.skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  background: var(--text);
+  color: var(--bg);
+  font-size: 0.8rem;
+  font-weight: 600;
+  transform: translateY(-150%);
+  transition: transform 0.2s;
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+
 /* ---------- Topbar ---------- */
 
 .topbar {
@@ -116,7 +134,24 @@ a {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line);
-  transition: border-color 0.5s;
+  transition: border-color 0.5s, box-shadow 0.5s;
+}
+
+.topbar-scrolled {
+  border-bottom-color: rgba(82, 82, 91, 0.4);
+  box-shadow: 0 1px 20px rgba(0,0,0,0.5);
+}
+
+.progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 1px;
+  background: var(--text);
+  transition: width 0.1s linear;
+  z-index: 2;
+  pointer-events: none;
 }
 
 .topbar-inner {
@@ -128,6 +163,11 @@ a {
   align-items: center;
   justify-content: space-between;
   position: relative;
+  transition: height 0.3s var(--ease);
+}
+
+.topbar-scrolled .topbar-inner {
+  height: 3.5rem;
 }
 
 .brand {
@@ -140,6 +180,17 @@ a {
   display: flex;
   align-items: center;
   gap: 2rem;
+  position: relative;
+}
+
+.nav-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: var(--text);
+  pointer-events: none;
+  transition: transform 0.3s var(--ease), width 0.3s var(--ease);
 }
 
 .nav a {
@@ -152,8 +203,13 @@ a {
   position: relative;
 }
 
-.nav a:hover {
+.nav a:hover,
+.nav a.active {
   color: var(--text);
+}
+
+.nav a.active::after {
+  width: 100%;
 }
 
 /* Underline hover for nav links */
@@ -343,12 +399,12 @@ a {
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--faint);
+  color: #888;
   white-space: nowrap;
 }
 
-.marquee-track .marquee-dot {
-  color: var(--line);
+.marquee-dot {
+  color: #888;
 }
 
 @keyframes marquee-scroll {
@@ -362,7 +418,7 @@ a {
 
 /* Hero CTA Actions */
 .hero-actions {
-  margin-top: 2.5rem;
+  margin-top: 3rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -415,7 +471,7 @@ a {
 .section-label .count {
   display: inline-block;
   margin-left: 0.5rem;
-  color: var(--faint);
+  color: #888;
   font-variant-numeric: tabular-nums;
 }
 
@@ -506,7 +562,7 @@ a {
 .project-stack {
   margin-top: 0.5rem;
   font-size: 0.85rem;
-  color: var(--faint);
+  color: #888;
 }
 
 .project-links {
@@ -775,6 +831,12 @@ html.js .reveal-blur.reveal-visible {
   .marquee-track {
     animation: none;
   }
+  .progress-bar {
+    display: none;
+  }
+  .nav-indicator {
+    display: none;
+  }
   .shader-bg canvas {
     display: none;
   }
@@ -840,6 +902,10 @@ html.js .reveal-blur.reveal-visible {
   }
 
   .nav a:not(.nav-cta)::after {
+    display: none;
+  }
+
+  .nav-indicator {
     display: none;
   }
 
