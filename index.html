@@ -17,6 +17,11 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- 21st.dev: WebGL Shader Background -->
+  <div class="shader-bg" id="shader-bg" aria-hidden="true">
+    <canvas id="shader-canvas"></canvas>
+  </div>
+
   <header class="topbar">
     <div class="topbar-inner">
       <a class="brand" href="#inicio">Sebastian Arroyo</a>
@@ -43,26 +48,55 @@
   </header>
 
   <main>
-    <section class="hero" id="inicio">
-      <h1 class="stagger" style="--d: 1">Sebastian Arroyo</h1>
+    <!-- 21st.dev-inspired: Hero with Spotlight + Text Reveal -->
+    <section class="hero hero-spotlight" id="inicio">
+      <h1 class="text-reveal stagger" style="--d: 1">Sebastian Arroyo</h1>
       <p class="hero-sub stagger" style="--d: 2">Backend Developer • Java</p>
+
+      <!-- 21st.dev-inspired: Infinite Marquee for tech stack -->
       <div class="hero-meta stagger" style="--d: 3">
-        <span>Java</span>
-        <span>Spring Boot</span>
-        <span>SQL Server</span>
-        <span>REST APIs</span>
+        <div class="marquee-track">
+          <span>Java</span>
+          <span class="marquee-dot">·</span>
+          <span>Spring Boot</span>
+          <span class="marquee-dot">·</span>
+          <span>SQL Server</span>
+          <span class="marquee-dot">·</span>
+          <span>REST APIs</span>
+          <span class="marquee-dot">·</span>
+          <span>Git</span>
+          <span class="marquee-dot">·</span>
+          <span>Microservicios</span>
+          <span class="marquee-dot">·</span>
+          <span>POO</span>
+          <span class="marquee-dot">·</span>
+          <span>Java</span>
+          <span class="marquee-dot">·</span>
+          <span>Spring Boot</span>
+          <span class="marquee-dot">·</span>
+          <span>SQL Server</span>
+          <span class="marquee-dot">·</span>
+          <span>REST APIs</span>
+          <span class="marquee-dot">·</span>
+          <span>Git</span>
+          <span class="marquee-dot">·</span>
+          <span>Microservicios</span>
+          <span class="marquee-dot">·</span>
+          <span>POO</span>
+          <span class="marquee-dot">·</span>
+        </div>
       </div>
     </section>
 
     <section class="section section-narrow" id="sobre-mi">
       <h2 class="section-label reveal-hidden">Sobre mi</h2>
       <div class="about-copy">
-        <p class="body-lg reveal-hidden">
+        <p class="body-lg reveal-blur">
           Trabajo en el backend: APIs en Java, bases de datos SQL y la logica
           que hace que todo funcione. Me interesa que las cosas queden claras,
           ordenadas y faciles de mantener.
         </p>
-        <p class="body-lg reveal-hidden">
+        <p class="body-lg reveal-blur">
           Construi sitios para clientes reales y proyectos academicos donde el
           foco esta en la logica de negocio. Estudio en UADE y sigo sumando
           herramientas al stack.
@@ -71,7 +105,7 @@
     </section>
 
     <section class="section section-narrow" id="proyectos">
-      <h2 class="section-label reveal-hidden">Proyectos</h2>
+      <h2 class="section-label reveal-hidden">Proyectos <span class="count">05</span></h2>
 
       <article class="project reveal-hidden">
         <div class="project-head">
@@ -136,7 +170,7 @@
     </section>
 
     <section class="section section-narrow" id="stack">
-      <h2 class="section-label reveal-hidden">Stack</h2>
+      <h2 class="section-label reveal-hidden">Stack <span class="count">06</span></h2>
       <div class="stack-table">
         <div class="stack-row reveal-hidden">
           <span class="stack-name">Java</span>
@@ -167,7 +201,7 @@
 
     <section class="section section-narrow" id="contacto">
       <h2 class="section-label reveal-hidden">Contacto</h2>
-      <div class="contact reveal-hidden">
+      <div class="contact reveal-blur">
         <p class="body-lg">
           ¿Buscas alguien para el backend? Aca esta mi CV y donde encontrarme.
         </p>

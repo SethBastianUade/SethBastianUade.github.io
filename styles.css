@@ -1,4 +1,5 @@
 /* Obsidian Editorial — monocromatico, Inter, esquinas duras, hairlines. */
+/* Enhanced with 21st.dev-inspired components: WebGL shader bg, text reveal, marquee, spotlight */
 
 :root {
   --bg: #0a0a0a;
@@ -56,6 +57,41 @@ a {
   text-decoration: none;
 }
 
+/* ==========================================================
+   21st.dev: WebGL Shader Background
+   Adapted from: Animated Shader Background (thanh/atzedent)
+   ========================================================== */
+
+.shader-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.shader-bg canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+  opacity: 0.4;
+}
+
+/* Fallback dot grid if WebGL fails */
+.shader-bg.no-webgl {
+  background-image: radial-gradient(circle, var(--faint) 0.5px, transparent 0.5px);
+  background-size: 32px 32px;
+  opacity: 0.15;
+  mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, black 20%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, black 20%, transparent 70%);
+}
+
+/* Content sits above shader */
+.topbar, main, footer {
+  position: relative;
+  z-index: 1;
+}
+
 /* ---------- Topbar ---------- */
 
 .topbar {
@@ -63,9 +99,11 @@ a {
   top: 0;
   width: 100%;
   z-index: 50;
-  background: rgba(10, 10, 10, 0.9);
-  backdrop-filter: blur(12px);
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line);
+  transition: border-color 0.5s;
 }
 
 .topbar-inner {
@@ -98,22 +136,58 @@ a {
   letter-spacing: 0.12em;
   color: var(--muted);
   transition: color 0.3s;
+  position: relative;
 }
 
 .nav a:hover {
   color: var(--text);
 }
 
+/* Underline hover for nav links */
+.nav a:not(.nav-cta)::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--text);
+  transition: width 0.3s var(--ease);
+}
+
+.nav a:not(.nav-cta):hover::after {
+  width: 100%;
+}
+
+/* Shimmer CTA Button */
 .nav .nav-cta {
   background: var(--text);
   color: var(--bg);
   padding: 0.55rem 1.5rem;
-  transition: opacity 0.3s;
+  transition: opacity 0.3s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav .nav-cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
 }
 
 .nav .nav-cta:hover {
   color: var(--bg);
-  opacity: 0.85;
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.nav .nav-cta:hover::before {
+  left: 100%;
 }
 
 .menu-toggle {
@@ -126,6 +200,11 @@ a {
   background: none;
   border: 1px solid var(--line);
   cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.menu-toggle:hover {
+  border-color: var(--faint);
 }
 
 .menu-toggle span {
@@ -134,6 +213,7 @@ a {
   height: 1px;
   margin: 0 auto;
   background: var(--text);
+  transition: transform 0.3s, opacity 0.3s;
 }
 
 /* ---------- Hero ---------- */
@@ -143,13 +223,39 @@ a {
   margin: 0 auto;
   padding: 13rem 1.5rem 5rem;
   text-align: center;
+  position: relative;
 }
 
+/* Text Reveal Animation */
 .hero h1 {
   font-size: clamp(2.5rem, 7vw, 4rem);
   font-weight: 600;
   line-height: 1.1;
   letter-spacing: -0.02em;
+}
+
+.text-reveal {
+  display: inline-block;
+  overflow: hidden;
+}
+
+.text-reveal .char {
+  display: inline-block;
+  animation: char-reveal 0.6s var(--ease) both;
+  animation-delay: var(--char-delay, 0ms);
+}
+
+@keyframes char-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(100%) rotateX(-80deg);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+    filter: blur(0);
+  }
 }
 
 .hero-sub {
@@ -158,16 +264,61 @@ a {
   color: var(--muted);
 }
 
+/* Infinite Marquee */
 .hero-meta {
   margin-top: 1.75rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-meta::before,
+.hero-meta::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hero-meta::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg), transparent);
+}
+
+.hero-meta::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg), transparent);
+}
+
+.marquee-track {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.5rem 1.5rem;
+  gap: 3rem;
+  width: max-content;
+  animation: marquee-scroll 20s linear infinite;
+}
+
+.marquee-track span {
+  flex-shrink: 0;
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: var(--faint);
+  white-space: nowrap;
+}
+
+.marquee-track .marquee-dot {
+  color: var(--line);
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.hero-meta:hover .marquee-track {
+  animation-play-state: paused;
 }
 
 /* ---------- Secciones ---------- */
@@ -175,6 +326,7 @@ a {
 .section {
   padding: 2.5rem 1.5rem;
   margin: 0 auto 2.5rem;
+  position: relative;
 }
 
 .section-narrow {
@@ -192,6 +344,13 @@ a {
   margin-bottom: 2rem;
 }
 
+.section-label .count {
+  display: inline-block;
+  margin-left: 0.5rem;
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+
 .body-lg {
   font-size: 1.125rem;
   line-height: 1.7;
@@ -207,11 +366,29 @@ a {
   padding: 2rem 1rem;
   margin: 0 -1rem;
   border-bottom: 1px solid var(--line);
-  transition: background-color 0.4s;
+  transition: background-color 0.4s, border-color 0.4s;
+  position: relative;
 }
 
 .project:hover {
   background-color: var(--surface);
+}
+
+/* Subtle left accent on hover */
+.project::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 0;
+  background: var(--text);
+  transition: height 0.4s var(--ease);
+}
+
+.project:hover::before {
+  height: 40%;
 }
 
 .project:last-of-type {
@@ -231,6 +408,11 @@ a {
   font-weight: 500;
   line-height: 1.3;
   letter-spacing: -0.01em;
+  transition: letter-spacing 0.3s;
+}
+
+.project:hover h3 {
+  letter-spacing: 0.01em;
 }
 
 .chip {
@@ -241,6 +423,12 @@ a {
   background: var(--line);
   color: var(--muted);
   padding: 0.25rem 0.6rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.project:hover .chip {
+  background: var(--faint);
+  color: var(--text);
 }
 
 .project > p {
@@ -267,11 +455,12 @@ a {
   color: var(--text);
   border-bottom: 1px solid var(--faint);
   padding-bottom: 2px;
-  transition: border-color 0.3s;
+  transition: border-color 0.3s, padding-bottom 0.3s;
 }
 
 .project-links a:hover {
   border-color: var(--text);
+  padding-bottom: 4px;
 }
 
 /* ---------- Stack ---------- */
@@ -283,11 +472,12 @@ a {
   padding: 1.25rem 1rem;
   margin: 0 -1rem;
   border-bottom: 1px solid var(--line);
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .stack-row:hover {
   background-color: var(--surface);
+  transform: translateX(4px);
 }
 
 .stack-row:last-child {
@@ -296,6 +486,11 @@ a {
 
 .stack-name {
   font-weight: 500;
+  transition: color 0.3s;
+}
+
+.stack-row:hover .stack-name {
+  color: var(--text);
 }
 
 .stack-desc {
@@ -311,6 +506,7 @@ a {
   gap: 1rem;
 }
 
+/* Shimmer Buttons */
 .button-primary,
 .button-secondary {
   display: inline-block;
@@ -319,7 +515,9 @@ a {
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  transition: opacity 0.3s, border-color 0.3s;
+  transition: all 0.3s var(--ease);
+  position: relative;
+  overflow: hidden;
 }
 
 .button-primary {
@@ -327,8 +525,25 @@ a {
   color: var(--bg);
 }
 
+.button-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transition: left 0.6s;
+}
+
 .button-primary:hover {
-  opacity: 0.85;
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(249, 249, 248, 0.1);
+}
+
+.button-primary:hover::before {
+  left: 100%;
 }
 
 .button-secondary {
@@ -338,14 +553,8 @@ a {
 
 .button-secondary:hover {
   border-color: var(--faint);
-}
-
-/* ---------- Footer ---------- */
-
-.footer {
-  margin-top: 5rem;
-  background: var(--surface);
-  border-top: 1px solid var(--line);
+  transform: translateY(-2px);
+  background: rgba(255,255,255,0.02);
 }
 
 /* ---------- Links hover underline ---------- */
@@ -358,6 +567,14 @@ a {
 
 .contact .body-lg a:hover {
   border-color: var(--text);
+}
+
+/* ---------- Footer ---------- */
+
+.footer {
+  margin-top: 5rem;
+  background: var(--surface);
+  border-top: 1px solid var(--line);
 }
 
 .footer-inner {
@@ -379,10 +596,26 @@ a {
 
 .footer-links a {
   transition: color 0.3s;
+  position: relative;
+}
+
+.footer-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--text);
+  transition: width 0.3s var(--ease);
 }
 
 .footer-links a:hover {
   color: var(--text);
+}
+
+.footer-links a:hover::after {
+  width: 100%;
 }
 
 /* ---------- Animaciones ---------- */
@@ -403,7 +636,7 @@ a {
   animation-delay: calc(var(--d) * 150ms);
 }
 
-/* Reveals: solo se ocultan si JS marco el html (progressive enhancement) */
+/* Reveals */
 html.js .reveal-hidden {
   opacity: 0;
   transform: translateY(20px);
@@ -415,6 +648,20 @@ html.js .reveal-visible {
   transform: none;
 }
 
+/* Blur-in reveal variant */
+html.js .reveal-blur {
+  opacity: 0;
+  transform: translateY(12px);
+  filter: blur(6px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease), filter 0.7s var(--ease);
+}
+
+html.js .reveal-blur.reveal-visible {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -423,10 +670,24 @@ html.js .reveal-visible {
   .stagger {
     animation: none;
   }
-  html.js .reveal-hidden {
+  html.js .reveal-hidden,
+  html.js .reveal-blur {
     opacity: 1;
     transform: none;
+    filter: none;
     transition: none;
+  }
+  .text-reveal .char {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+  .marquee-track {
+    animation: none;
+  }
+  .shader-bg canvas {
+    display: none;
   }
 }
 
@@ -460,6 +721,10 @@ html.js .reveal-visible {
     border-bottom: 1px solid var(--line);
   }
 
+  .nav a:not(.nav-cta)::after {
+    display: none;
+  }
+
   .nav .nav-cta {
     margin-top: 1rem;
     text-align: center;
@@ -475,6 +740,10 @@ html.js .reveal-visible {
     gap: 0.25rem;
   }
 
+  .stack-row:hover {
+    transform: none;
+  }
+
   .project-head {
     flex-direction: column;
     align-items: flex-start;
@@ -483,5 +752,10 @@ html.js .reveal-visible {
 
   .footer-inner {
     flex-direction: column;
+  }
+
+  /* Reduce shader intensity on mobile for performance */
+  .shader-bg canvas {
+    opacity: 0.25;
   }
 }
