@@ -1,81 +1,107 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+
+function AnimatedNavLink({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <a
+      href={href}
+      className="group relative inline-block overflow-hidden h-5 flex items-center text-sm"
+    >
+      <div className="flex flex-col transition-transform duration-[400ms] ease-out transform group-hover:-translate-y-1/2">
+        <span className="text-[var(--color-muted)]">{children}</span>
+        <span className="text-[var(--color-text)]">{children}</span>
+      </div>
+    </a>
+  );
+}
 
 const navLinksData = [
   { label: "Sobre mi", href: "#sobre-mi" },
   { label: "Proyectos", href: "#proyectos" },
   { label: "Stack", href: "#stack" },
-  { label: "Contacto", href: "#contacto" },
 ];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const shapeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const toggleMenu = () => setIsOpen((prev) => !prev);
 
+  const headerShapeClass = isOpen ? "rounded-xl" : "rounded-full";
+
+  useEffect(() => {
+    if (!isOpen) {
+      shapeTimeoutRef.current = setTimeout(() => {
+        shapeTimeoutRef.current = null;
+      }, 300);
+    }
+
+    return () => {
+      if (shapeTimeoutRef.current) clearTimeout(shapeTimeoutRef.current);
+    };
+  }, [isOpen]);
+
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-[rgba(12,12,12,0.85)] backdrop-blur-xl border-b border-[var(--color-line)]"
-          : "bg-[rgba(12,12,12,0.6)] backdrop-blur-sm border-b border-transparent"
-      }`}
+      className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center pl-6 pr-6 py-3 backdrop-blur-sm ${headerShapeClass} border border-[#333] bg-[#1f1f1f57] w-[calc(100%-2rem)] sm:w-auto transition-[border-radius] duration-300 ease-in-out`}
     >
-      <div
-        className={`max-w-[1200px] mx-auto px-6 flex items-center justify-between transition-all duration-300 ${
-          scrolled ? "h-14" : "h-16"
-        }`}
-      >
-        <a
-          href="#inicio"
-          className="flex items-center gap-2.5 text-[var(--color-text)] font-semibold text-base shrink-0"
-        >
-          <span className="w-2 h-2 rounded-full bg-gray-300" />
-          <span>Sebastian Arroyo</span>
+      <div className="flex items-center justify-between w-full gap-x-6 sm:gap-x-8">
+        <a href="#inicio" className="flex items-center">
+          <div className="relative w-5 h-5 flex items-center justify-center">
+            <span className="absolute w-1.5 h-1.5 rounded-full bg-gray-200 top-0 left-1/2 -translate-x-1/2 opacity-80" />
+            <span className="absolute w-1.5 h-1.5 rounded-full bg-gray-200 left-0 top-1/2 -translate-y-1/2 opacity-80" />
+            <span className="absolute w-1.5 h-1.5 rounded-full bg-gray-200 right-0 top-1/2 -translate-y-1/2 opacity-80" />
+            <span className="absolute w-1.5 h-1.5 rounded-full bg-gray-200 bottom-0 left-1/2 -translate-x-1/2 opacity-80" />
+          </div>
         </a>
 
-        <nav className="navbar-links hidden md:flex items-center gap-8 text-sm relative">
+        <nav className="navbar-links hidden sm:flex items-center space-x-4 sm:space-x-6 text-sm relative">
           {navLinksData.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors duration-200"
-            >
+            <AnimatedNavLink key={link.href} href={link.href}>
               {link.label}
-            </a>
+            </AnimatedNavLink>
           ))}
-          <a
-            href="cv.pdf"
-            target="_blank"
-            rel="noopener"
-            className="ml-2 px-4 py-[7px] text-sm font-semibold text-black bg-[var(--color-text)] rounded-full hover:opacity-90 transition-opacity duration-200"
-          >
-            CV
-          </a>
           <span className="nav-indicator" aria-hidden="true" />
         </nav>
 
+        <div className="hidden sm:flex items-center gap-2 sm:gap-3">
+          <a
+            href="#contacto"
+            className="px-4 py-2 sm:px-3 text-xs sm:text-sm border border-[#333] bg-[rgba(31,31,31,0.62)] text-gray-300 rounded-full hover:border-white/50 hover:text-white transition-colors duration-200 w-full sm:w-auto"
+          >
+            Contacto
+          </a>
+          <div className="relative group w-full sm:w-auto">
+            <div className="absolute inset-0 -m-2 rounded-full hidden sm:block bg-gray-100 opacity-40 filter blur-lg pointer-events-none transition-all duration-300 ease-out group-hover:opacity-60 group-hover:blur-xl group-hover:-m-3" />
+            <a
+              href="cv.pdf"
+              target="_blank"
+              rel="noopener"
+              className="relative z-10 inline-block px-4 py-2 sm:px-3 text-xs sm:text-sm font-semibold text-black bg-gradient-to-br from-gray-100 to-gray-300 rounded-full hover:from-gray-200 hover:to-gray-400 transition-all duration-200 w-full sm:w-auto"
+            >
+              CV
+            </a>
+          </div>
+        </div>
+
         <button
-          className="md:hidden flex items-center justify-center w-8 h-8 text-gray-300 focus:outline-none"
+          className="sm:hidden flex items-center justify-center w-8 h-8 text-gray-300 focus:outline-none"
           onClick={toggleMenu}
           aria-label={isOpen ? "Cerrar menu" : "Abrir menu"}
-          aria-expanded={isOpen}
         >
           {isOpen ? (
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           ) : (
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           )}
@@ -83,34 +109,40 @@ export default function Navbar() {
       </div>
 
       <div
-        className={`md:hidden transition-all ease-in-out duration-300 overflow-hidden ${
+        className={`sm:hidden flex flex-col items-center w-full transition-all ease-in-out duration-300 overflow-hidden ${
           isOpen
-            ? "max-h-[500px] opacity-100"
+            ? "max-h-[1000px] opacity-100 pt-4"
             : "max-h-0 opacity-0 pointer-events-none"
         }`}
       >
-        <div className="max-w-[1200px] mx-auto px-6 pb-6 pt-2 flex flex-col items-stretch gap-3">
+        <nav className="flex flex-col items-center space-y-4 text-base w-full">
           {navLinksData.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors duration-200 py-2 text-sm text-center"
+              className="text-gray-300 hover:text-white transition-colors w-full text-center"
               onClick={() => setIsOpen(false)}
             >
               {link.label}
             </a>
           ))}
-          <div className="border-t border-[var(--color-line)] pt-3 mt-1">
-            <a
-              href="cv.pdf"
-              target="_blank"
-              rel="noopener"
-              className="block w-full py-[10px] text-sm font-semibold text-black bg-[var(--color-text)] rounded-full hover:opacity-90 transition-opacity duration-200 text-center"
-              onClick={() => setIsOpen(false)}
-            >
-              Descargar CV
-            </a>
-          </div>
+        </nav>
+        <div className="flex flex-col items-center space-y-4 mt-4 w-full">
+          <a
+            href="#contacto"
+            className="px-4 py-2 text-xs sm:text-sm border border-[#333] bg-[rgba(31,31,31,0.62)] text-gray-300 rounded-full hover:border-white/50 hover:text-white transition-colors duration-200 text-center w-full"
+            onClick={() => setIsOpen(false)}
+          >
+            Contacto
+          </a>
+          <a
+            href="cv.pdf"
+            target="_blank"
+            rel="noopener"
+            className="px-4 py-2 text-xs sm:text-sm font-semibold text-black bg-gradient-to-br from-gray-100 to-gray-300 rounded-full hover:from-gray-200 hover:to-gray-400 transition-all duration-200 text-center w-full"
+          >
+            CV
+          </a>
         </div>
       </div>
     </header>
