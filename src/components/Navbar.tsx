@@ -12,11 +12,11 @@ function AnimatedNavLink({
   return (
     <a
       href={href}
-      className="group relative inline-block overflow-hidden h-5 flex items-center text-sm"
+      className="group relative inline-block overflow-hidden h-[22px] flex items-center text-sm leading-none"
     >
       <div className="flex flex-col transition-transform duration-[400ms] ease-out transform group-hover:-translate-y-1/2">
-        <span className="text-[var(--color-muted)]">{children}</span>
-        <span className="text-[var(--color-text)]">{children}</span>
+        <span className="leading-[22px] text-[var(--color-muted)]">{children}</span>
+        <span className="leading-[22px] text-[var(--color-text)]">{children}</span>
       </div>
     </a>
   );
@@ -50,7 +50,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center pl-6 pr-6 py-3 backdrop-blur-sm ${headerShapeClass} border border-[#333] bg-[#1f1f1f57] w-[calc(100%-2rem)] sm:w-auto transition-[border-radius] duration-300 ease-in-out`}
+      className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center px-7 py-[18px] backdrop-blur-sm ${headerShapeClass} border border-[#333] bg-[#1f1f1f57] w-[calc(100%-2rem)] sm:w-auto transition-[border-radius] duration-300 ease-in-out`}
     >
       <div className="flex items-center justify-between w-full gap-x-6 sm:gap-x-8">
         <a href="#inicio" className="flex items-center">
@@ -62,7 +62,7 @@ export default function Navbar() {
           </div>
         </a>
 
-        <nav className="navbar-links hidden sm:flex items-center space-x-4 sm:space-x-6 text-sm relative">
+        <nav className="navbar-links hidden sm:flex items-center gap-x-6 lg:gap-x-8 text-sm relative">
           {navLinksData.map((link) => (
             <AnimatedNavLink key={link.href} href={link.href}>
               {link.label}
@@ -71,20 +71,20 @@ export default function Navbar() {
           <span className="nav-indicator" aria-hidden="true" />
         </nav>
 
-        <div className="hidden sm:flex items-center gap-2 sm:gap-3">
+        <div className="hidden sm:flex items-center gap-4">
           <a
             href="#contacto"
-            className="px-4 py-2 sm:px-3 text-xs sm:text-sm border border-[#333] bg-[rgba(31,31,31,0.62)] text-gray-300 rounded-full hover:border-white/50 hover:text-white transition-colors duration-200 w-full sm:w-auto"
+            className="px-5 py-[10px] text-sm border border-[#333] bg-[rgba(31,31,31,0.62)] text-gray-300 rounded-full hover:border-white/50 hover:text-white transition-colors duration-200"
           >
             Contacto
           </a>
-          <div className="relative group w-full sm:w-auto">
+          <div className="relative group">
             <div className="absolute inset-0 -m-2 rounded-full hidden sm:block bg-gray-100 opacity-40 filter blur-lg pointer-events-none transition-all duration-300 ease-out group-hover:opacity-60 group-hover:blur-xl group-hover:-m-3" />
             <a
               href="cv.pdf"
               target="_blank"
               rel="noopener"
-              className="relative z-10 inline-block px-4 py-2 sm:px-3 text-xs sm:text-sm font-semibold text-black bg-gradient-to-br from-gray-100 to-gray-300 rounded-full hover:from-gray-200 hover:to-gray-400 transition-all duration-200 w-full sm:w-auto"
+              className="relative z-10 inline-block px-5 py-[10px] text-sm font-semibold text-black bg-gradient-to-br from-gray-100 to-gray-300 rounded-full hover:from-gray-200 hover:to-gray-400 transition-all duration-200"
             >
               CV
             </a>
