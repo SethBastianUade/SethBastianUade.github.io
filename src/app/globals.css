@@ -209,6 +209,7 @@ main, footer {
   transition: left 0.6s;
 }
 .nav .nav-cta:hover {
+  color: var(--color-bg);
   opacity: 0.9;
   transform: translateY(-1px);
 }
