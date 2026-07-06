@@ -243,7 +243,7 @@ void main(){gl_Position=position;}`;
 
 
 // ==========================================================
-// Menu movil
+// Menu movil — animated hamburger → X
 // ==========================================================
 const menuToggle = document.querySelector(".menu-toggle");
 const nav = document.querySelector(".nav");
@@ -251,6 +251,7 @@ const nav = document.querySelector(".nav");
 if (menuToggle && nav) {
   const setMenuState = (open) => {
     nav.classList.toggle("open", open);
+    menuToggle.classList.toggle("active", open);
     menuToggle.setAttribute("aria-expanded", String(open));
     menuToggle.setAttribute("aria-label", open ? "Cerrar menu" : "Abrir menu");
   };
@@ -259,12 +260,28 @@ if (menuToggle && nav) {
     setMenuState(!nav.classList.contains("open"));
   });
 
+  // Close on link click
   nav.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => setMenuState(false));
   });
 
+  // Close on resize to desktop
   window.addEventListener("resize", () => {
     if (window.innerWidth > 720) {
+      setMenuState(false);
+    }
+  });
+
+  // Close on Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && nav.classList.contains("open")) {
+      setMenuState(false);
+    }
+  });
+
+  // Close on click outside
+  document.addEventListener("click", (e) => {
+    if (nav.classList.contains("open") && !nav.contains(e.target) && !menuToggle.contains(e.target)) {
       setMenuState(false);
     }
   });
@@ -319,6 +336,51 @@ window.addEventListener("scroll", updateActiveNav, { passive: true });
 updateActiveNav();
 
 // ==========================================================
+// Topbar — subtle border glow on scroll
+// ==========================================================
+const topbar = document.querySelector(".topbar");
+
+if (topbar) {
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 40) {
+      topbar.style.borderBottomColor = "rgba(82, 82, 91, 0.4)";
+      topbar.style.boxShadow = "0 1px 20px rgba(0,0,0,0.5)";
+    } else {
+      topbar.style.borderBottomColor = "";
+      topbar.style.boxShadow = "";
+    }
+  }, { passive: true });
+}
+
+// ==========================================================
+// Animated counters — count up when visible
+// ==========================================================
+if (!prefersReducedMotion) {
+  document.querySelectorAll(".section-label .count").forEach((counter) => {
+    const target = parseInt(counter.textContent, 10);
+    if (isNaN(target)) return;
+
+    counter.textContent = "00";
+
+    const countObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        let current = 0;
+        const step = () => {
+          current++;
+          counter.textContent = String(current).padStart(2, "0");
+          if (current < target) requestAnimationFrame(step);
+        };
+        setTimeout(step, 300);
+        obs.unobserve(entry.target);
+      });
+    }, { threshold: 0.5 });
+
+    countObserver.observe(counter.closest(".section-label") || counter);
+  });
+}
+
+// ==========================================================
 // Scroll Reveals — staggered per section
 // ==========================================================
 const revealTargets = document.querySelectorAll(".reveal-hidden, .reveal-blur");
@@ -347,3 +409,4 @@ if (prefersReducedMotion) {
     observer.observe(el);
   });
 }
+
