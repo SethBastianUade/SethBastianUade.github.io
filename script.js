@@ -1,7 +1,9 @@
+// Marca que hay JS: los reveals solo se ocultan con esta clase (sin JS todo se ve).
+document.documentElement.classList.add("js");
+
+// Menu movil
 const menuToggle = document.querySelector(".menu-toggle");
 const nav = document.querySelector(".nav");
-const navLinks = document.querySelectorAll(".nav a");
-const typingTarget = document.querySelector(".terminal-typing");
 
 if (menuToggle && nav) {
   const setMenuState = (open) => {
@@ -14,67 +16,42 @@ if (menuToggle && nav) {
     setMenuState(!nav.classList.contains("open"));
   });
 
-  navLinks.forEach((link) => {
+  nav.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => setMenuState(false));
   });
 
   window.addEventListener("resize", () => {
-    if (window.innerWidth > 820) {
+    if (window.innerWidth > 720) {
       setMenuState(false);
     }
   });
 }
 
-if (typingTarget) {
-  const fullText = typingTarget.dataset.text ?? "";
-  let index = 0;
-
-  typingTarget.classList.add("is-typing");
-
-  const type = () => {
-    typingTarget.textContent = fullText.slice(0, index);
-    index += 1;
-
-    if (index <= fullText.length) {
-      window.setTimeout(type, 42);
-      return;
-    }
-
-    typingTarget.classList.remove("is-typing");
-  };
-
-  type();
-}
-
-/* Reveals al hacer scroll. Progressive enhancement: sin JS o con prefers-reduced-motion,
-   el contenido se ve completo. CSS soportado -> scroll-driven animations; si no, este
-   IntersectionObserver hace de fallback agregando .is-visible. */
+// Reveals al hacer scroll, escalonados por seccion
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-const revealTargets = document.querySelectorAll(
-  ".section-heading, .stack-row, .project-row, .contact-item"
-);
+const revealTargets = document.querySelectorAll(".reveal-hidden");
 
-if (revealTargets.length && !prefersReducedMotion) {
-  document.documentElement.classList.add("reveal-enabled");
-  revealTargets.forEach((el) => el.classList.add("reveal"));
-
-  const supportsScrollDriven = CSS.supports(
-    "(animation-timeline: view()) and (animation-range: entry)"
+if (prefersReducedMotion) {
+  revealTargets.forEach((el) => el.classList.add("reveal-visible"));
+} else if (revealTargets.length) {
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const section = entry.target;
+        const items = section.matches(".reveal-hidden")
+          ? [section]
+          : section.querySelectorAll(".reveal-hidden");
+        items.forEach((item, i) => {
+          setTimeout(() => item.classList.add("reveal-visible"), i * 100);
+        });
+        obs.unobserve(section);
+      });
+    },
+    { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
   );
 
-  if (!supportsScrollDriven) {
-    const observer = new IntersectionObserver(
-      (entries, obs) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            obs.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -10% 0px" }
-    );
-
-    revealTargets.forEach((el) => observer.observe(el));
-  }
+  document.querySelectorAll("main .section, footer.reveal-hidden").forEach((el) => {
+    observer.observe(el);
+  });
 }

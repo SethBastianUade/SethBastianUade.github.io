@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Portfolio | Product Designer</title>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-primary-fixed-variant": "#454747",
+                "error": "#ffb4ab",
+                "surface": "#131313",
+                "on-tertiary": "#2f3038",
+                "surface-bright": "#3a3939",
+                "on-primary": "#2f3130",
+                "surface-tint": "#c6c7c6",
+                "surface-container-lowest": "#0e0e0e",
+                "surface-variant": "#353534",
+                "on-primary-fixed": "#1a1c1c",
+                "inverse-surface": "#e5e2e1",
+                "secondary-fixed": "#e2e1eb",
+                "tertiary-fixed-dim": "#c7c5d0",
+                "on-tertiary-container": "#64636d",
+                "surface-container-low": "#1c1b1b",
+                "inverse-on-surface": "#313030",
+                "surface-container-high": "#2a2a2a",
+                "on-surface": "#e5e2e1",
+                "on-background": "#e5e2e1",
+                "surface-container-highest": "#353534",
+                "on-secondary-container": "#b4b4bd",
+                "surface-container": "#201f1f",
+                "secondary-container": "#45464e",
+                "on-surface-variant": "#c4c7c6",
+                "error-container": "#93000a",
+                "on-secondary-fixed": "#1a1b22",
+                "outline": "#8e9191",
+                "on-tertiary-fixed-variant": "#46464f",
+                "secondary": "#c6c6cf",
+                "primary": "#ffffff",
+                "on-error": "#690005",
+                "on-secondary-fixed-variant": "#45464e",
+                "on-primary-container": "#636564",
+                "outline-variant": "#434847",
+                "on-secondary": "#2f3037",
+                "primary-container": "#e2e2e2",
+                "surface-dim": "#131313",
+                "primary-fixed": "#e2e2e2",
+                "primary-fixed-dim": "#c6c7c6",
+                "tertiary": "#ffffff",
+                "background": "#131313",
+                "on-error-container": "#ffdad6",
+                "tertiary-container": "#e3e1ec",
+                "tertiary-fixed": "#e3e1ec",
+                "inverse-primary": "#5d5f5e",
+                "secondary-fixed-dim": "#c6c6cf",
+                "on-tertiary-fixed": "#1a1b23"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "stack-lg": "32px",
+                "section-gap": "80px",
+                "container-max": "1280px",
+                "margin-mobile": "20px",
+                "margin-desktop": "64px",
+                "stack-md": "16px",
+                "gutter": "24px",
+                "stack-sm": "8px"
+        },
+        "fontFamily": {
+                "display-lg-mobile": ["Inter"],
+                "body-md": ["Inter"],
+                "headline-sm": ["Inter"],
+                "caption": ["Inter"],
+                "body-lg": ["Inter"],
+                "label-md": ["Inter"],
+                "display-lg": ["Inter"],
+                "headline-lg": ["Inter"]
+        },
+        "fontSize": {
+                "display-lg-mobile": ["40px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "headline-sm": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "500"}]
+        }
+      },
+    },
+  }
+</script>
+<style>
+        body {
+            background-color: #131313;
+            color: #e5e2e1;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for gallery feel */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #131313;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #353534;
+        }
+
+        /* Animation Utility Classes */
+        .reveal-hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .page-entrance {
+            animation: pageEntrance 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+        @keyframes pageEntrance {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-scale-up {
+            opacity: 0;
+            transform: scale(0.95);
+            animation: heroScaleUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+        @keyframes heroScaleUp {
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .stagger-in {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            .reveal-hidden, .page-entrance, .hero-scale-up, .stagger-in {
+                animation: none !important;
+                transition: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface page-entrance">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full bg-surface border-b border-outline-variant z-50">
+<nav class="flex justify-between items-center max-w-[1200px] mx-auto px-6 md:px-margin-desktop h-20">
+<span class="text-body-lg font-bold text-primary">Portfolio</span>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-label-md font-label-md text-on-surface-variant hover:text-primary transition-colors duration-300 cursor-pointer uppercase tracking-widest" href="#projects">Projects</a>
+<a class="text-label-md font-label-md text-on-surface-variant hover:text-primary transition-colors duration-300 cursor-pointer uppercase tracking-widest" href="#experience">Experience</a>
+<a class="text-label-md font-label-md text-on-surface-variant hover:text-primary transition-colors duration-300 cursor-pointer uppercase tracking-widest" href="#about">About</a>
+<button class="bg-primary text-on-primary px-6 py-2 text-label-md font-label-md hover:bg-surface-tint transition-all duration-300 uppercase tracking-widest">Contact</button>
+</div>
+<!-- Mobile Menu Placeholder -->
+<div class="md:hidden text-on-surface">
+<span class="material-symbols-outlined">menu</span>
+</div>
+</nav>
+</header>
+<main class="pt-32 pb-section-gap">
+<!-- Hero Section -->
+<section class="max-w-[800px] mx-auto px-6 mb-section-gap text-center">
+<div class="mb-8 flex justify-center hero-scale-up" style="animation-delay: 100ms;">
+<img class="w-24 h-24 rounded-full object-cover grayscale opacity-90 border border-outline-variant" data-alt="A professional, high-end studio portrait of a modern product designer with a neutral expression. The lighting is soft and directional, creating subtle shadows that emphasize facial structure. The background is a clean, solid off-white, matching a minimalist gallery aesthetic. The image is sharp, high-resolution, and conveys a sense of disciplined professionalism and quiet confidence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoMTYgvss_uiKog2nnaV5zEiOHljPEO9kLUwxBMCmXjA7LHg3tLjhvR8YZ4IJMe-lgLgTJ8agNtu5PuhxCwhYACdN8I79kx4Dbarh3C68kX1O9-faa9F4Pd8WpIYUSfM5O_3RCF0DJ3BpF18xAwAK4qjf2SPkglGLJXa0KUF1sjaiQyVhsP8TOKqbLExNRlB4FpKChfXnRiWp_kuwizUYQJGnWwfh3A2s8U2H_Hk_XyFFin6dOCfB9hEJo4okQ77aKaz_fIE2dkiQ"/>
+</div>
+<h1 class="font-display-lg text-display-lg mb-4 stagger-in" style="animation: pageEntrance 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; animation-delay: 300ms;">Alex Sterling</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-6 stagger-in" style="animation: pageEntrance 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; animation-delay: 450ms;">Senior Product Designer • he/him</p>
+<div class="flex flex-wrap justify-center gap-4 text-on-surface-variant font-caption text-caption stagger-in" style="animation: pageEntrance 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; animation-delay: 600ms;">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">location_on</span> San Francisco, CA</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">mail</span> alex@sterling.design</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">link</span> sterling.design</span>
+</div>
+</section>
+<!-- About Section -->
+<section class="max-w-[800px] mx-auto px-6 mb-section-gap section-reveal" id="about">
+<h2 class="text-label-md font-label-md text-on-surface-variant mb-8 border-b border-outline-variant pb-2 uppercase tracking-widest reveal-hidden">About</h2>
+<div class="space-y-6">
+<p class="font-body-lg text-body-lg leading-relaxed reveal-hidden">
+                    I am a product designer focused on creating disciplined digital experiences that prioritize clarity over decoration. My approach is rooted in archival research and functional minimalism, ensuring that every interface element serves a deliberate structural purpose.
+                </p>
+<p class="font-body-lg text-body-lg leading-relaxed reveal-hidden">
+                    With over eight years of experience working across fintech and healthcare sectors, I specialize in translating complex systemic requirements into intuitive, editorial-grade user interfaces. I believe that good design should be felt through its ease of use rather than seen through unnecessary flourishes.
+                </p>
+</div>
+</section>
+<!-- Projects Section -->
+<section class="max-w-[1000px] mx-auto px-6 mb-section-gap section-reveal" id="projects">
+<h2 class="text-label-md font-label-md text-on-surface-variant mb-8 border-b border-outline-variant pb-2 uppercase tracking-widest reveal-hidden">Selected Projects</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Project 1 -->
+<div class="group cursor-pointer reveal-hidden hover:bg-surface-container-low transition-colors duration-500 p-4 -m-4 rounded-lg">
+<div class="aspect-[4/3] bg-surface-container mb-4 overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover grayscale brightness-75 transition-all duration-700 ease-out group-hover:scale-105 group-hover:brightness-100" data-alt="A clean, minimalist UI design for a high-end financial dashboard. The interface uses a monochrome palette with sharp edges and hairline dividers. Subtle typography in a sans-serif font displays complex data visualizations with ample white space. The overall aesthetic is professional, architectural, and sophisticated, avoiding all shadows and gradients." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqJ6o4XS7B_sxm-bM-5BkBoAAgmrHu_7asy3qOaOdVUEGtGWlP7pIa5HT9sm9Ja7q_i0aNidRJVNtKotJsaQrlugHoY08w0rqGMvvuoWMIjbQjcYPXsqaPpUzxsVhr4gMPC_KTxHqjAiSxfWVXRRs1-N3-4iHKviSws3kJ6booLgzd8REiUlB639Ad9QIIc4IazTgdkZYZ_8uxQc1ubTaac8H22jAkA2awQYHVZDAE3v3Dl_qKoOhmsvNRVGLamM21PQqTJdY39P0"/>
+</div>
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-sm text-headline-sm text-primary">Nexus Core</h3>
+<span class="text-label-md font-label-md bg-surface-container-highest text-on-surface px-2 py-1 rounded">Fintech</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">A modular design system for high-frequency trading platforms, focusing on data density and cognitive load reduction.</p>
+</div>
+<!-- Project 2 -->
+<div class="group cursor-pointer reveal-hidden hover:bg-surface-container-low transition-colors duration-500 p-4 -m-4 rounded-lg">
+<div class="aspect-[4/3] bg-surface-container mb-4 overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover grayscale brightness-75 transition-all duration-700 ease-out group-hover:scale-105 group-hover:brightness-100" data-alt="A minimalist mobile application interface for a healthcare monitoring system. The design features large, clear typography and a strictly organized grid layout. The color scheme is off-white and charcoal with small, precise accents of primary black. The composition emphasizes clarity and ease of navigation in a high-stakes medical context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKg6xH2IbbExHapWpAB7uBh3Fi88oKO9g_pGEfPEv9O4RxJuCVSUO5DFsEy2JdQTna8jfcT6sIr88E-CUHuBRcVqRaxT51nHwL4rRPA6RFWZ-lZ2UTbYkxoEQafqj9vz-vz_axlWRHagxig_dSAL8KJ2uC5ucdWWYZBHTM5tRyo4peyooKGiXWsSzDDyCYO_fWYoHbjDRX5nYOZXynlSaMOhtYMA63VFIPv35H6GR1RutWIDAVyEW7uJBjjZ_zXKzG84GNN2ITWS0"/>
+</div>
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-sm text-headline-sm text-primary">Ether Health</h3>
+<span class="text-label-md font-label-md bg-surface-container-highest text-on-surface px-2 py-1 rounded">Healthcare</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Simplifying patient record management through a calm, typography-first interface designed for rapid clinical environments.</p>
+</div>
+</div>
+</section>
+<!-- Experience Section -->
+<section class="max-w-[800px] mx-auto px-6 mb-section-gap section-reveal" id="experience">
+<h2 class="text-label-md font-label-md text-on-surface-variant mb-8 border-b border-outline-variant pb-2 uppercase tracking-widest reveal-hidden">Experience</h2>
+<div class="space-y-0">
+<!-- Exp 1 -->
+<div class="py-8 border-b border-outline-variant reveal-hidden hover:bg-surface-container-low transition-colors duration-300 -mx-4 px-4 rounded-lg">
+<div class="flex flex-col md:flex-row md:justify-between md:items-baseline mb-4">
+<h3 class="font-headline-sm text-headline-sm text-primary">Senior Product Designer</h3>
+<span class="text-label-md font-label-md text-on-surface-variant">Stripe • 2021 — Present</span>
+</div>
+<ul class="space-y-2 text-on-surface-variant font-body-md text-body-md list-disc list-inside">
+<li>Leading the design of the global billing dashboard and merchant tools.</li>
+<li>Reduced user onboarding friction by 24% through systematic flow optimization.</li>
+<li>Maintaining and evolving the internal design system across multiple product lines.</li>
+</ul>
+</div>
+<!-- Exp 2 -->
+<div class="py-8 border-b border-outline-variant reveal-hidden hover:bg-surface-container-low transition-colors duration-300 -mx-4 px-4 rounded-lg">
+<div class="flex flex-col md:flex-row md:justify-between md:items-baseline mb-4">
+<h3 class="font-headline-sm text-headline-sm text-primary">Product Designer</h3>
+<span class="text-label-md font-label-md text-on-surface-variant">Airbnb • 2018 — 2021</span>
+</div>
+<ul class="space-y-2 text-on-surface-variant font-body-md text-body-md list-disc list-inside">
+<li>Designed end-to-end features for the Luxury Retreats vertical.</li>
+<li>Collaborated with engineering to implement a new accessibility-first typography framework.</li>
+<li>Spearheaded the 'Archival Series' design language for high-end host profiles.</li>
+</ul>
+</div>
+<!-- Exp 3 -->
+<div class="py-8 reveal-hidden hover:bg-surface-container-low transition-colors duration-300 -mx-4 px-4 rounded-lg">
+<div class="flex flex-col md:flex-row md:justify-between md:items-baseline mb-4">
+<h3 class="font-headline-sm text-headline-sm text-primary">Junior UI Designer</h3>
+<span class="text-label-md font-label-md text-on-surface-variant">Medium • 2016 — 2018</span>
+</div>
+<ul class="space-y-2 text-on-surface-variant font-body-md text-body-md list-disc list-inside">
+<li>Focused on core reading experience and editorial typography tooling.</li>
+<li>Supported the transition to a component-based design workflow in Figma.</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Awards Section -->
+<section class="max-w-[800px] mx-auto px-6 section-reveal">
+<h2 class="text-label-md font-label-md text-on-surface-variant mb-8 border-b border-outline-variant pb-2 uppercase tracking-widest reveal-hidden">Recognition</h2>
+<div class="space-y-4">
+<div class="flex justify-between items-center py-2 border-b border-surface-container reveal-hidden">
+<span class="font-caption text-caption text-on-surface-variant w-20">2023</span>
+<span class="font-body-md text-body-md flex-grow text-on-surface">Site of the Year</span>
+<span class="text-label-md font-label-md text-on-surface-variant">Awwwards</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-surface-container reveal-hidden">
+<span class="font-caption text-caption text-on-surface-variant w-20">2022</span>
+<span class="font-body-md text-body-md flex-grow text-on-surface">Product Innovation Award</span>
+<span class="text-label-md font-label-md text-on-surface-variant">Red Dot</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-surface-container reveal-hidden">
+<span class="font-caption text-caption text-on-surface-variant w-20">2020</span>
+<span class="font-body-md text-body-md flex-grow text-on-surface">Design Excellence</span>
+<span class="text-label-md font-label-md text-on-surface-variant">iF Design</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-section-gap bg-surface border-t border-outline-variant reveal-hidden">
+<div class="flex flex-col md:flex-row justify-between items-center max-w-[1200px] mx-auto px-6 md:px-margin-desktop py-12 gap-gutter">
+<span class="font-caption text-caption text-on-surface-variant">© 2024 Product Designer</span>
+<div class="flex gap-8">
+<a class="font-caption text-caption text-on-surface-variant hover:text-primary transition-colors duration-300 cursor-pointer" href="#">Email</a>
+<a class="font-caption text-caption text-on-surface-variant hover:text-primary transition-colors duration-300 cursor-pointer" href="#">LinkedIn</a>
+<a class="font-caption text-caption text-on-surface-variant hover:text-primary transition-colors duration-300 cursor-pointer" href="#">Read.cv</a>
+</div>
+</div>
+</footer>
+<script>
+        // Simple scroll behavior for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Sticky header styling on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('bg-opacity-90', 'backdrop-blur-lg');
+            } else {
+                header.classList.remove('bg-opacity-90', 'backdrop-blur-lg');
+            }
+        });
+
+        // Intersection Observer for Scroll Reveals
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // If it's a section reveal, stagger its children
+                    const revealItems = entry.target.querySelectorAll('.reveal-hidden');
+                    revealItems.forEach((item, index) => {
+                        setTimeout(() => {
+                            item.classList.add('reveal-visible');
+                        }, index * 100);
+                    });
+                    
+                    // If the item itself is hidden (like the footer)
+                    if (entry.target.classList.contains('reveal-hidden')) {
+                        entry.target.classList.add('reveal-visible');
+                    }
+                    
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections and the footer
+        document.querySelectorAll('.section-reveal, footer.reveal-hidden').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // Observe standalone reveal items that might not be in a section-reveal container
+        document.querySelectorAll('.reveal-hidden:not(.section-reveal .reveal-hidden)').forEach(el => {
+            revealObserver.observe(el);
+        });
+    </script>
+</body></html>
