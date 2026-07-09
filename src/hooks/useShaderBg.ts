@@ -130,15 +130,24 @@ void main(){gl_Position=position;}`;
       pointerCount: gl.getUniformLocation(program, "pointerCount"),
     };
 
+    // Medir la caja CSS real del canvas, no el viewport: window.innerWidth
+    // incluye la scrollbar y window.innerHeight cambia con la barra de URL en
+    // mobile. Cualquier desfase de aspecto contra la caja pintada se ve como
+    // deformacion, porque el shader corrige el aspecto con `resolution`.
     function resize() {
+      const width = canvas!.clientWidth;
+      const height = canvas!.clientHeight;
+      if (!width || !height) return;
+
       const dpr = Math.max(1, 0.85 * window.devicePixelRatio);
-      canvas!.width = window.innerWidth * dpr;
-      canvas!.height = window.innerHeight * dpr;
+      canvas!.width = width * dpr;
+      canvas!.height = height * dpr;
       gl.viewport(0, 0, canvas!.width, canvas!.height);
     }
 
     resize();
-    window.addEventListener("resize", resize);
+    const resizeObserver = new ResizeObserver(resize);
+    resizeObserver.observe(canvas);
 
     function render(now: number) {
       gl.clearColor(0, 0, 0, 1);
@@ -164,7 +173,7 @@ void main(){gl_Position=position;}`;
 
     animRef.current = requestAnimationFrame(loop);
 
-    document.addEventListener("visibilitychange", () => {
+    function onVisibilityChange() {
       if (document.hidden) {
         running = false;
         cancelAnimationFrame(animRef.current);
@@ -172,12 +181,15 @@ void main(){gl_Position=position;}`;
         running = true;
         animRef.current = requestAnimationFrame(loop);
       }
-    });
+    }
+
+    document.addEventListener("visibilitychange", onVisibilityChange);
 
     return () => {
       running = false;
       cancelAnimationFrame(animRef.current);
-      window.removeEventListener("resize", resize);
+      resizeObserver.disconnect();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
       gl.deleteProgram(program);
       gl.deleteShader(vs);
       gl.deleteShader(fs);

@@ -36,7 +36,9 @@ body {
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  animation: page-entrance 0.8s var(--ease-out-expo) both;
+  /* Solo opacidad: animar transform en body lo volveria containing block
+     de los descendientes position:fixed (rompe .shader-bg). */
+  animation: page-fade 0.8s var(--ease-out-expo) both;
 }
 
 ::selection {
@@ -590,6 +592,10 @@ main, footer {
 }
 
 /* Animations */
+@keyframes page-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 @keyframes page-entrance {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: none; }
