@@ -66,7 +66,7 @@ export default function Navbar() {
       </div>
 
       {/* Dentro del topbar: es el unico ancestro posicionado, y ademas es lo
-          que la ancla al borde inferior de la barra. */}
+          que la ancla al borde superior de la barra. */}
       <div className="progress-bar" aria-hidden="true" />
     </header>
   );

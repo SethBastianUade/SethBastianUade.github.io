@@ -286,7 +286,7 @@ main, footer {
 /* Progress bar */
 .progress-bar {
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
   width: 0%;
   height: 1px;
