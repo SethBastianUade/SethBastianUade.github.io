@@ -17,9 +17,7 @@ export default function MarqueeTrack() {
         {track.map((item, i) => (
           <span key={i}>
             {item}
-            {i < track.length - 1 && (
-              <span className="marquee-dot"> ·</span>
-            )}
+            <span className="marquee-dot"> ·</span>
           </span>
         ))}
       </div>
@@ -28,41 +26,31 @@ export default function MarqueeTrack() {
           margin-top: 1.75rem;
           overflow: hidden;
           position: relative;
-        }
-        .hero-meta::before,
-        .hero-meta::after {
-          content: '';
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          width: 60px;
-          z-index: 2;
-          pointer-events: none;
-        }
-        .hero-meta::before {
-          left: 0;
-          background: linear-gradient(to right, var(--color-bg), transparent);
-        }
-        .hero-meta::after {
-          right: 0;
-          background: linear-gradient(to left, var(--color-bg), transparent);
+          /* mask, no un gradiente opaco: detras esta el shader, asi que pintar
+             hacia --color-bg dejaria un rectangulo visible en los bordes. */
+          mask-image: linear-gradient(
+            to right,
+            transparent,
+            #000 60px,
+            #000 calc(100% - 60px),
+            transparent
+          );
         }
         .marquee-track {
           display: flex;
-          gap: 3rem;
           width: max-content;
           animation: marquee-scroll 20s linear infinite;
         }
-        .marquee-track span {
+        /* margin en vez de gap: con gap, translateX(-50%) no cae en un ciclo
+           exacto (sobra medio gap) y el loop pega un salto. */
+        .marquee-track > span {
           flex-shrink: 0;
+          margin-right: 3rem;
           font-size: 0.75rem;
           text-transform: uppercase;
           letter-spacing: 0.12em;
           color: var(--color-dim);
           white-space: nowrap;
-        }
-        .marquee-dot {
-          color: var(--color-dim);
         }
         .hero-meta:hover .marquee-track {
           animation-play-state: paused;

@@ -36,9 +36,10 @@ body {
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  /* Solo opacidad: animar transform en body lo volveria containing block
-     de los descendientes position:fixed (rompe .shader-bg). */
-  animation: page-fade 0.8s var(--ease-out-expo) both;
+  /* Sin animacion en body: una animacion vigente de transform lo volveria
+     containing block de los descendientes position:fixed (rompe .shader-bg),
+     y una de opacity lo volveria backdrop root (rompe el blur del .topbar).
+     La entrada la hacen .char, .stagger y los reveals de cada seccion. */
 }
 
 ::selection {
@@ -62,7 +63,22 @@ body {
   height: 100%;
   display: block;
   touch-action: none;
-  opacity: 0.4;
+  opacity: 0.32;
+}
+/* Vinneta: hunde las esquinas para que las nubes del shader lean como
+   profundidad y no como manchas, y centra la vista en la columna editorial. */
+.shader-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 90% 75% at 50% 38%,
+    transparent 0%,
+    rgba(10, 10, 10, 0.35) 55%,
+    rgba(10, 10, 10, 0.8) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
 }
 .dot-grid-overlay {
   position: absolute;
@@ -115,8 +131,9 @@ main, footer {
   width: 100%;
   z-index: 50;
   background: rgba(10, 10, 10, 0.85);
+  /* Sin -webkit-: Lightning CSS dedupea y se queda solo con la prefijada,
+     que Chrome ya no soporta. El toolchain agrega los prefijos que hagan falta. */
   backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid transparent;
   transition: border-color 0.3s, box-shadow 0.3s;
 }
@@ -592,10 +609,6 @@ main, footer {
 }
 
 /* Animations */
-@keyframes page-fade {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
 @keyframes page-entrance {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: none; }
@@ -633,7 +646,6 @@ main, footer {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  body { animation: none; }
   .stagger { animation: none; }
   .reveal-hidden, .reveal-blur { opacity: 1; transform: none; filter: none; transition: none; }
   .char { animation: none; opacity: 1; transform: none; filter: none; }
@@ -654,9 +666,9 @@ main, footer {
     right: 0;
     flex-direction: column;
     align-items: stretch;
-    background: rgba(10, 10, 10, 0.95);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    /* Opaco: con 5% de transparencia el titular del hero se leia a traves
+       del desplegable. Al ser opaco, un backdrop-filter no aportaria nada. */
+    background: var(--color-bg);
     padding: 0 1.5rem 1.5rem;
     max-height: 0;
     overflow: hidden;

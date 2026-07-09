@@ -12,7 +12,7 @@ export function useScrollSpy() {
     const sections = document.querySelectorAll<HTMLElement>(
       "main .section[id], .hero[id]"
     );
-    const progressBar = document.querySelector<HTMLProgressElement>(".progress-bar");
+    const progressBar = document.querySelector<HTMLElement>(".progress-bar");
     const navIndicator = document.querySelector(".nav-indicator");
     const navEl = document.querySelector(".navbar-links");
 
@@ -24,7 +24,6 @@ export function useScrollSpy() {
         document.documentElement.scrollHeight - window.innerHeight;
 
       if (progressBar && docHeight > 0) {
-        progressBar.value = (scrollY / docHeight) * 100;
         progressBar.style.width = `${(scrollY / docHeight) * 100}%`;
       }
 
@@ -35,6 +34,12 @@ export function useScrollSpy() {
           current = section.getAttribute("id") || "";
         }
       });
+
+      // La ultima seccion arranca demasiado abajo como para cruzar el umbral:
+      // al tocar el fondo de la pagina, marcarla igual.
+      if (docHeight > 0 && scrollY >= docHeight - 2) {
+        current = sections[sections.length - 1].getAttribute("id") || current;
+      }
 
       navLinks.forEach((link) => {
         link.classList.toggle(

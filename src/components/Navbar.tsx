@@ -64,6 +64,10 @@ export default function Navbar() {
           <span className="nav-indicator" aria-hidden="true" />
         </nav>
       </div>
+
+      {/* Dentro del topbar: es el unico ancestro posicionado, y ademas es lo
+          que la ancla al borde inferior de la barra. */}
+      <div className="progress-bar" aria-hidden="true" />
     </header>
   );
 }

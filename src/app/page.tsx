@@ -1,7 +1,5 @@
 "use client";
 
-"use client";
-
 import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import ShaderBg from "@/components/ShaderBg";
@@ -31,8 +29,6 @@ export default function Home() {
       </a>
 
       <Navbar />
-
-      <div className="progress-bar" role="progressbar" aria-valuenow={0} aria-valuemin={0} aria-valuemax={100} />
 
       <main id="main-content">
         <HeroSection />

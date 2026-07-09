@@ -76,6 +76,10 @@ export function useShaderBg(canvasRef: React.RefObject<HTMLCanvasElement | null>
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    // El CSS ya oculta el canvas con reduced-motion; sin esto el loop de
+    // rAF seguiria renderizando a pantalla completa para nada.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     const ctx = canvas.getContext("webgl2");
     if (!ctx) return;
 
