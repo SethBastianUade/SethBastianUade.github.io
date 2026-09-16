@@ -1,32 +1,29 @@
 const stack = [
-  { name: "Java", desc: "El nucleo. Logica de negocio, POO y apps de verdad." },
   {
-    name: "Spring Boot",
-    desc: "APIs REST y estructura backend que no estorba.",
+    name: "IA y agentes",
+    desc: "Botpress, diseño de prompts, guardrails, flujos conversacionales y WhatsApp Business API.",
   },
   {
-    name: "SQL Server",
-    desc: "Consultas, persistencia y modelado de datos.",
+    name: "IA en el trabajo",
+    desc: "Claude Code a diario para investigar, refactorizar y documentar, con revisión humana.",
+  },
+  { name: "Lenguajes", desc: "Java, Python y SQL." },
+  {
+    name: "Backend y datos",
+    desc: "Spring Boot, ZK, Hibernate, JPA, APIs REST, PostgreSQL, SQL Server y MySQL.",
   },
   {
-    name: "REST APIs",
-    desc: "Endpoints claros y contratos que se mantienen.",
+    name: "Herramientas",
+    desc: "Postman, Docker, GitHub y GitHub Actions (CI/CD).",
   },
-  {
-    name: "Git",
-    desc: "Versionado y trabajo ordenado, sin perder nada.",
-  },
-  {
-    name: "Microservicios",
-    desc: "Separar responsabilidades para que escale.",
-  },
+  { name: "Frontend", desc: "React y Tailwind CSS." },
 ];
 
 export default function StackSection() {
   return (
     <section className="section section-narrow" id="stack">
       <h2 className="section-label">
-        Stack <span className="count">06</span>
+        Stack <span className="count">{String(stack.length).padStart(2, "0")}</span>
       </h2>
       <div>
         {stack.map((item) => (

@@ -39,7 +39,7 @@ export default function HeroSection() {
     <section className="hero" id="inicio">
       <TextReveal text="Sebastian Arroyo" />
       <p className="hero-sub stagger" style={{ "--d": 2 } as React.CSSProperties}>
-        Backend Developer &bull; Java
+        Agentes de IA &bull; Analista Programador Java
       </p>
 
       <MarqueeTrack />

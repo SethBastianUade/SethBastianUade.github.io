@@ -1,10 +1,18 @@
 const projects = [
   {
+    title: "BiFrost",
+    chip: "Kreta",
+    description:
+      "SaaS POS multi-tenant para PyMEs con facturación electrónica integrada a la API de ARCA.",
+    stack: "Java 17 · Spring Boot · PostgreSQL · React",
+    links: [] as { label: string; href: string }[],
+  },
+  {
     title: "Club Center Fight Academy",
     chip: "Cliente",
     description:
-      "Sitio institucional para un club. Mas presencia online y una imagen mas profesional.",
-    stack: "HTML · CSS · JavaScript",
+      "Agente de IA en producción sobre WhatsApp Business API para la atención al cliente del club, más su sitio institucional. Relevé el proceso y diseñé flujos, prompts y guardrails hasta el go-live.",
+    stack: "Botpress · WhatsApp Business API · HTML · CSS · JavaScript",
     links: [
       { label: "Ver sitio", href: "https://clubcenterfa.com" },
       {
@@ -61,7 +69,7 @@ export default function ProjectsSection() {
   return (
     <section className="section section-narrow" id="proyectos">
       <h2 className="section-label reveal-hidden">
-        Proyectos <span className="count">05</span>
+        Proyectos <span className="count">{String(projects.length).padStart(2, "0")}</span>
       </h2>
 
       {projects.map((project) => (

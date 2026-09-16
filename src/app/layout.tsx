@@ -9,9 +9,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Sebastian Arroyo | Backend Developer",
+  title: "Sebastián Arroyo | Agentes de IA y Backend Java",
   description:
-    "Sebastian Arroyo, Backend Developer. Construyo el backend de aplicaciones en Java: APIs REST, bases de datos SQL y logica de negocio.",
+    "Sebastián Arroyo, implementador de agentes de IA y Analista Programador Java. Llevo agentes sobre WhatsApp Business API a producción y desarrollo a medida para banca y PyMEs.",
 };
 
 export default function RootLayout({

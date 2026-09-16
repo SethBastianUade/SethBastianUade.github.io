@@ -1,11 +1,13 @@
 const items = [
+  "Agentes de IA",
+  "WhatsApp Business API",
+  "Botpress",
+  "Claude Code",
   "Java",
   "Spring Boot",
-  "SQL Server",
-  "REST APIs",
-  "Git",
-  "Microservicios",
-  "POO",
+  "ZK",
+  "PostgreSQL",
+  "Docker",
 ];
 
 export default function MarqueeTrack() {

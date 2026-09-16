@@ -4,7 +4,7 @@ export default function ContactSection() {
       <h2 className="section-label reveal-hidden">Contacto</h2>
       <div className="contact reveal-blur">
         <p className="body-lg">
-          ¿Buscas alguien para el backend? Aca esta mi CV y donde encontrarme.
+          ¿Buscás a alguien que lleve agentes de IA a producción o construya el backend? Acá está mi CV y dónde encontrarme.
         </p>
         <div className="contact-actions">
           <a

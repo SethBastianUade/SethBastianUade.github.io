@@ -1,17 +1,19 @@
 export default function AboutSection() {
   return (
     <section className="section section-narrow" id="sobre-mi">
-      <h2 className="section-label reveal-hidden">Sobre mi</h2>
+      <h2 className="section-label reveal-hidden">Sobre mí</h2>
       <div className="about-copy">
         <p className="body-lg reveal-blur">
-          Trabajo en el backend: APIs en Java, bases de datos SQL y la logica
-          que hace que todo funcione. Me interesa que las cosas queden claras,
-          ordenadas y faciles de mantener.
+          Implemento agentes de IA. Llevé a producción un asistente
+          conversacional sobre WhatsApp Business API para la atención al
+          cliente de un comercio, del relevamiento del proceso a los prompts,
+          los flujos y los guardrails.
         </p>
         <p className="body-lg reveal-blur">
-          Construi sitios para clientes reales y proyectos academicos donde el
-          foco esta en la logica de negocio. Estudio en UADE y sigo sumando
-          herramientas al stack.
+          Soy cofundador de Kreta, un estudio de software para PyMEs, y
+          Analista Programador en Vivatia, donde relevo necesidades de bancos y
+          aseguradoras y las convierto en desarrollos a medida en Java. Estudio
+          la Tecnicatura en Desarrollo de Software en UADE.
         </p>
       </div>
     </section>

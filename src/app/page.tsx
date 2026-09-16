@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import ShaderBg from "@/components/ShaderBg";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
+import ExperienceSection from "@/components/ExperienceSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import StackSection from "@/components/StackSection";
 import ContactSection from "@/components/ContactSection";
@@ -33,6 +34,7 @@ export default function Home() {
       <main id="main-content">
         <HeroSection />
         <AboutSection />
+        <ExperienceSection />
         <ProjectsSection />
         <StackSection />
         <ContactSection />
