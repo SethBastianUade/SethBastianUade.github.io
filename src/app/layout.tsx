@@ -11,7 +11,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Sebastián Arroyo | Agentes de IA y Backend Java",
   description:
-    "Sebastián Arroyo, implementador de agentes de IA y Analista Programador Java. Llevo agentes sobre WhatsApp Business API a producción y desarrollo a medida para banca y PyMEs.",
+    "Sebastián Arroyo, implementador de agentes de IA y Analista Programador Java. Llevé un agente de IA sobre WhatsApp Business API a producción y desarrollo a medida para banca y PyMEs.",
 };
 
 export default function RootLayout({

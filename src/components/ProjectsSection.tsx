@@ -5,13 +5,13 @@ const projects = [
     description:
       "SaaS POS multi-tenant para PyMEs con facturación electrónica integrada a la API de ARCA.",
     stack: "Java 17 · Spring Boot · PostgreSQL · React",
-    links: [] as { label: string; href: string }[],
+    links: [{ label: "Ver demo", href: "https://bifrost-software.com.ar/login" }],
   },
   {
     title: "Club Center Fight Academy",
     chip: "Cliente",
     description:
-      "Agente de IA en producción sobre WhatsApp Business API para la atención al cliente del club, más su sitio institucional. Relevé el proceso y diseñé flujos, prompts y guardrails hasta el go-live.",
+      "Sitio institucional y agente de IA sobre WhatsApp Business API para la atención al cliente del club. Relevé el proceso y diseñé flujos, prompts y guardrails hasta el go-live; operó hasta que el cambio de pricing de la API de WhatsApp dejó de cerrarle al cliente.",
     stack: "Botpress · WhatsApp Business API · HTML · CSS · JavaScript",
     links: [
       { label: "Ver sitio", href: "https://clubcenterfa.com" },
