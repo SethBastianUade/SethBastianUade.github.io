@@ -18,10 +18,13 @@
   animation-delay: calc(var(--d, 0) * 150ms);
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* En @layer base: sin layer, este reset le gana a las utilidades p-*/m-* de Tailwind. */
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 }
 
 html {
@@ -39,7 +42,7 @@ body {
   /* Sin animacion en body: una animacion vigente de transform lo volveria
      containing block de los descendientes position:fixed (rompe .shader-bg),
      y una de opacity lo volveria backdrop root (rompe el blur del .topbar).
-     La entrada la hacen .char, .stagger y los reveals de cada seccion. */
+     La entrada la hacen .stagger y los reveals de cada seccion. */
 }
 
 ::selection {
@@ -296,45 +299,74 @@ main, footer {
   pointer-events: none;
 }
 
-/* Hero */
+/* Hero (adaptado de prisma-hero, 21st.dev) */
 .hero {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 13rem 1.5rem 5rem;
-  text-align: center;
+  height: 100svh;
+  padding: 5.5rem 0.5rem 0.5rem;
   position: relative;
 }
-.hero h1 {
-  font-size: clamp(2.5rem, 7vw, 4rem);
-  font-weight: 600;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+.hero-card {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 1rem;
+  background: var(--color-surface);
+}
+.hero-noise {
+  opacity: 0.7;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.hero-title {
+  color: #e1e0cc;
+  font-weight: 500;
+  line-height: 0.85;
+  letter-spacing: -0.07em;
+  font-size: 19vw;
+  padding-bottom: 0.12em; /* line-height 0.85 corta los descendentes (la "y") */
 }
 .hero-sub {
-  margin-top: 1rem;
-  font-size: 1.125rem;
-  color: var(--color-muted);
+  color: rgba(225, 224, 204, 0.75);
+  font-size: clamp(0.875rem, 1.2vw, 1rem);
+  line-height: 1.3;
 }
-.hero-actions {
-  margin-top: 3rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.25rem 0.25rem 1.25rem;
+  border-radius: 999px;
+  background: #e1e0cc;
+  color: #000;
+  font-weight: 500;
+  transition: gap 0.3s var(--ease-out-expo);
 }
-.btn-arrow {
-  display: inline-block;
-  transition: transform 0.25s var(--ease-out-expo);
+.hero-cta:hover { gap: 0.75rem; }
+.hero-cta-icon {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  background: #000;
+  color: #e1e0cc;
+  transition: transform 0.3s var(--ease-out-expo);
 }
-.hero-cta:hover .btn-arrow {
-  transform: translateX(4px);
+.hero-cta:hover .hero-cta-icon { transform: scale(1.1); }
+.hero-link {
+  color: rgba(225, 224, 204, 0.8);
+  font-size: 0.9rem;
+  border-bottom: 1px solid currentColor;
+  transition: color 0.3s;
 }
-
-/* Char reveal */
-.char {
-  display: inline-block;
-  animation: char-reveal 0.6s var(--ease-out-expo) both;
-  animation-delay: var(--char-delay, 0ms);
+.hero-link:hover { color: #e1e0cc; }
+@media (min-width: 768px) {
+  .hero { padding: 6rem 1rem 1rem; }
+  .hero-card { border-radius: 2rem; }
+}
+@media (min-width: 1024px) {
+  /* Dos líneas en 8/12 columnas: "Sebastian" tiene que entrar en ~66vw */
+  .hero-title { font-size: 12.5vw; }
 }
 
 /* Sections */
@@ -613,14 +645,6 @@ main, footer {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: none; }
 }
-@keyframes char-reveal {
-  from { opacity: 0; transform: translateY(100%) rotateX(-80deg); filter: blur(4px); }
-  to { opacity: 1; transform: translateY(0) rotateX(0); filter: blur(0); }
-}
-@keyframes marquee-scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
 
 /* Reveals */
 .reveal-hidden {
@@ -648,10 +672,9 @@ main, footer {
   html { scroll-behavior: auto; }
   .stagger { animation: none; }
   .reveal-hidden, .reveal-blur { opacity: 1; transform: none; filter: none; transition: none; }
-  .char { animation: none; opacity: 1; transform: none; filter: none; }
-  .marquee-track { animation: none; }
   .progress-bar { display: none; }
   .shader-bg canvas { display: none; }
+  .hero-video { display: none; }
 }
 
 /* Responsive */
@@ -706,7 +729,6 @@ main, footer {
     border-bottom: none;
   }
 
-  .hero { padding-top: 10rem; }
   .stack-row { grid-template-columns: 1fr; gap: 0.25rem; }
   .stack-row:hover { transform: none; }
   .project-head { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
