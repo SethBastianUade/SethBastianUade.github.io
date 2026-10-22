@@ -44,9 +44,10 @@ export default function HeroSection() {
 
             <div className="col-span-12 flex flex-col gap-5 pb-6 lg:col-span-4 lg:pb-10">
               <p className="hero-sub stagger" style={{ "--d": 3 } as React.CSSProperties}>
-                Implemento agentes de IA y desarrollo backend en Java. Llevé un
-                agente sobre WhatsApp Business API a producción y construyo
-                software a medida para banca y PyMEs.
+                Desarrollador backend (Java, Spring Boot) en camino a AI
+                Engineering. Construyo sistemas de negocio en producción y
+                aprendo a integrar y evaluar IA con el mismo foco en la
+                confiabilidad.
               </p>
 
               <div className="flex flex-wrap items-center gap-4 stagger" style={{ "--d": 4 } as React.CSSProperties}>

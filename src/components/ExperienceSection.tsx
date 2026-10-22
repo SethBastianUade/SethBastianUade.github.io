@@ -1,22 +1,23 @@
 const jobs = [
   {
-    org: "Kreta",
-    role: "Cofundador y AI Engineer",
-    period: "Mar 2024 — hoy",
-    bullets: [
-      "Implementé con Botpress un agente de IA sobre WhatsApp Business API para la atención al cliente de Club Center: relevamiento del proceso, flujos, prompts y guardrails, probando conversaciones hasta el go-live.",
-      "Relevo los procesos de venta y atención de cada cliente y los traduzco a reglas, automatizaciones y flujos conversacionales, explicando cada decisión técnica a dueños de PyMEs.",
-      "Entregué proyectos end-to-end, incluido BiFrost, un SaaS POS multi-tenant en Java 17 y Spring Boot con facturación electrónica integrada a la API de ARCA.",
-    ],
-  },
-  {
     org: "Vivatia",
     role: "Analista Programador",
     period: "Mar 2025 — hoy",
     bullets: [
       "Relevo las necesidades de clientes de banca y seguros y las convierto en desarrollos a medida en Java y ZK sobre Thuban, plataforma empresarial del sector.",
-      "Brindo Soporte Nivel 2 con 100% de cumplimiento de SLA en incidentes productivos.",
+      "Soporte Nivel 2 de sistemas en producción: análisis de incidentes, debugging y fixes bajo SLA, con 100% de cumplimiento.",
+      "Migraciones de sistemas y bases de datos (Oracle → SQL Server) para clientes corporativos.",
       "Reduje 20% el tiempo de respuesta de las APIs optimizando consultas SQL en SQL Server.",
+    ],
+  },
+  {
+    org: "Kreta",
+    role: "Cofundador",
+    period: "Mar 2024 — hoy",
+    bullets: [
+      "Estudio de software para PyMEs: relevo los procesos de venta y atención de cada cliente y los traduzco a software, explicando cada decisión técnica a los dueños.",
+      "Construí BiFrost, un SaaS POS multi-tenant en Java 17 y Spring Boot con facturación electrónica integrada a la API de ARCA, hoy en producción.",
+      "Implementé con Botpress un agente de IA sobre WhatsApp Business API para la atención al cliente de Club Center, del relevamiento al go-live.",
     ],
   },
   {
@@ -41,9 +42,11 @@ export default function ExperienceSection() {
             <span className="chip">{job.period}</span>
           </div>
           <p className="project-stack">{job.role}</p>
-          {job.bullets.map((bullet) => (
-            <p key={bullet}>{bullet}</p>
-          ))}
+          <ul className="job-bullets">
+            {job.bullets.map((bullet) => (
+              <li key={bullet}>{bullet}</li>
+            ))}
+          </ul>
         </article>
       ))}
     </section>

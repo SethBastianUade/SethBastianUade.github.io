@@ -1,22 +1,22 @@
 const stack = [
+  { name: "Lenguajes", desc: "Java, Python, SQL y TypeScript." },
   {
-    name: "IA y agentes",
-    desc: "Botpress, diseño de prompts, guardrails, flujos conversacionales y WhatsApp Business API.",
+    name: "Backend",
+    desc: "Spring Boot, JPA / Hibernate, APIs REST y ZK.",
   },
   {
-    name: "IA en el trabajo",
-    desc: "Claude Code a diario para investigar, refactorizar y documentar, con revisión humana.",
+    name: "Bases de datos",
+    desc: "PostgreSQL, SQL Server, Oracle y MySQL.",
   },
-  { name: "Lenguajes", desc: "Java, Python y SQL." },
-  {
-    name: "Backend y datos",
-    desc: "Spring Boot, ZK, Hibernate, JPA, APIs REST, PostgreSQL, SQL Server y MySQL.",
-  },
+  { name: "Frontend", desc: "React, HTML y CSS." },
   {
     name: "Herramientas",
-    desc: "Postman, Docker, GitHub y GitHub Actions (CI/CD).",
+    desc: "Git, GitHub Actions, Docker y Postman.",
   },
-  { name: "Frontend", desc: "React y Tailwind CSS." },
+  {
+    name: "IA",
+    desc: "Claude Code en el flujo de desarrollo diario; Inspect y Ollama para investigación de evaluaciones; Botpress y WhatsApp Business API para agentes conversacionales.",
+  },
 ];
 
 export default function StackSection() {

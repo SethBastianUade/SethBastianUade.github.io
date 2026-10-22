@@ -4,7 +4,12 @@ export default function ContactSection() {
       <h2 className="section-label reveal-hidden">Contacto</h2>
       <div className="contact reveal-blur">
         <p className="body-lg">
-          ¿Buscás a alguien que lleve agentes de IA a producción o construya el backend? Acá está mi CV y dónde encontrarme.
+          ¿Necesitás un backend Java que aguante producción, o alguien que
+          integre y evalúe IA con el mismo cuidado? Escribime a{" "}
+          <a href="mailto:sebastianarroyo9014@gmail.com">
+            sebastianarroyo9014@gmail.com
+          </a>
+          .
         </p>
         <div className="contact-actions">
           <a
