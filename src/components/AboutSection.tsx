@@ -16,7 +16,7 @@ export default function AboutSection() {
         </p>
         <p className="body-lg reveal-blur">
           Me interesa la <strong>AI Safety</strong>: la evaluación y la
-          confiabilidad de sistemas de IA. Hice el curso introductorio de
+          confiabilidad de sistemas de IA. Completé el curso de
           Technical AI Safety de BlueDot Impact y hoy investigo reward hacking
           en equipo para la Investigathon 2026.
         </p>

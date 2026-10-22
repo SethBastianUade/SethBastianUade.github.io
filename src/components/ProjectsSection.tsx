@@ -11,7 +11,7 @@ const projects: Project[] = [
     title: "Investigathon 2026 · Reward Hacking",
     chip: "Investigación · en curso",
     description:
-      "Proyecto de investigación en equipo. Pregunta: ¿los reward hacks muestran más exploración del entorno que las soluciones legítimas, medido solo desde los comandos del agente? Corro evals con Inspect sobre un modelo abierto local (Qwen3 8B vía Ollama) y agregué logging por acción a un fork del benchmark EvilGenie. Los pilotos están hechos; falta el código de análisis.",
+      "Proyecto de investigación en equipo. Pregunta: ¿los reward hacks muestran más exploración del entorno que las soluciones legítimas, medido solo desde los comandos del agente? En equipo corremos evals con Inspect sobre un modelo abierto local (Qwen3 8B vía Ollama) y agregamos logging por acción a un fork del benchmark EvilGenie. Los pilotos están hechos; falta el código de análisis.",
     stack: "Python · Inspect · Ollama · Qwen3 8B · EvilGenie",
     links: [
       { label: "GitHub", href: "https://github.com/SethBastianUade/Investigathon-2026" },
